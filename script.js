@@ -10,7 +10,8 @@ let option1 = `
       <input type="text" id="option1InputDecode" placeholder="Text to decode">
       <button type="button" onclick="option1Decode()">Decode</button>
     </div>
-    <div id="option1Output" class="Output" onclick="copyOutput(option1Output)">
+    <div class="OutputWrapper" onclick="copyOutput()">
+    <div id="Output" class="Output"></div>
       <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
     </div>
   `;
@@ -79,7 +80,7 @@ function error(message) {
   // }, 1000);
 }
 
-function copyOutput(id) {
-  const output = document.getElementById(id);
+function copyOutput() {
+  const output = document.getElementById("Output");
   navigator.clipboard.writeText(output.innerHTML);
 }
