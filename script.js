@@ -1,20 +1,63 @@
-let option1 = `
-    <p class="info">Info Text</p>
-    <input type="number" name="option1Key" id="option1Key" placeholder="key">
+let caesar = `
+    <p class="info">You can only use normal characters and numbers. Space will remain a space</p>
+    <input type="number" name="caesarKey" id="caesarKey" placeholder="key">
     <div class="EncodeWrapper">
-      <input type="text" id="option1InputEncode" placeholder="Text to encode">
-      <button type="button" onclick="option1Encode()">Encode</button>
+      <input type="text" id="caesarInputEncode" placeholder="Text to encode">
+      <button type="button" onclick="caesarEncode()">Encode</button>
     </div>
     <br>
-    <div class="option1DecodeWrapper">
-      <input type="text" id="option1InputDecode" placeholder="Text to decode">
-      <button type="button" onclick="option1Decode()">Decode</button>
+    <div class="caesarDecodeWrapper">
+      <input type="text" id="caesarInputDecode" placeholder="Text to decode">
+      <button type="button" onclick="caesarDecode()">Decode</button>
     </div>
     <div class="OutputWrapper" onclick="copyOutput()">
     <div id="Output" class="Output"></div>
       <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
     </div>
   `;
+  
+const caesarString =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+
+function caesarEncode() {
+  let text = document.getElementById("caesarInputEncode").value;
+  if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/? ]+/.test(text)) {
+    //TODO
+    error("contains special characters, won't work.");
+    return;
+  }
+  let key = parseInt(document.getElementById("caesarKey").value);
+  let res = "";
+  for (let i = 0; i < text.length; i++) {
+    let caesarStringIndex = caesarString.indexOf(text.charAt(i));
+    let char = caesarStringIndex + key;
+    char = char % caesarString.length;
+    res = res.concat(caesarString.charAt(char));
+  }
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerHTML = res;
+}
+
+function caesarDecode() {
+  let text = document.getElementById("caesarInputDecode").value;
+  if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/? ]+/.test(text)) {
+    //TODO
+    alert("contains special characters, won't work. ");
+    return;
+  }
+  let key = parseInt(document.getElementById("caesarKey").value);
+  let res = "";
+  for (let i = 0; i < text.length; i++) {
+    let caesarStringIndex = caesarString.indexOf(text.charAt(i));
+    let char = caesarStringIndex - key;
+    char = char % caesarString.length;
+    res = res.concat(caesarString.charAt(char));
+  }
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerHTML = res;
+}
 
 let option2 = `
     <p class="info">Info Text</p>
@@ -58,8 +101,8 @@ function chooseMethod() {
   contentWrapper = document.getElementById("contentWrapper");
   contentWrapper.innerHTML = "";
   switch (value) {
-    case "1":
-      contentWrapper.innerHTML = option1;
+    case "caesar":
+      contentWrapper.innerHTML = caesar;
       break;
     case "2":
       contentWrapper.innerHTML = option2;
