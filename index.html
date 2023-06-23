@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypty</title>
     <script src="script.js"></script>
-</head>
-<body>
-    <input type="number" name="key" id="key" placeholder="key">
-    <br>
-    <button type="button" onclick="encode()">Encode</button>
-    <input type="text" id="inputEncode" placeholder="Text to encode">
-    <br>
-    <button type="button" onclick="decode()">Decode</button>
-    <input type="text" id="inputDecode" placeholder="Text to decode">
-    <div id="output"></div>
-</body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="flex-wrapper">
+      <h1>Hi I'm Crypty</h1>
+      <img id="logo" src="src/cryptyLogoTransparent.png" alt="Crypty Logo" />
+      <!-- da lueg ich das de CryptyError scho glade wird demit wen mer langsams internet hed en mögliche error funktioner würd-->
+      <img src="src/cryptyLogoTransparentError.png" alt="Crypty Logo Error" hidden />
+      <h2>I love to de- and encrypt for you</h2>
+      <select id="method" name="method" onchange="chooseMethod()"  >
+        <option disabled selected value="" >Select an method</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <div id="contentWrapper"></div>
+      <footer>
+        <hr>
+        <nav>
+        <a href="howDoesCryptyWork.html" target="_blank" rel="noopener noreferrer">Learn about the different decrypting methodes</a>
+          <a href="https://www.flaticon.com/free-icons/copy" title="copy icons">Copy icon created by Freepik - Flaticon</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
 </html>
