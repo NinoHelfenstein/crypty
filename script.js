@@ -143,6 +143,7 @@ function chooseMethod() {
 }
 
 function error(message) {
+  // Es wird am Body d'class error hinzugfüegt und nacher s'bild vom crypty gändered. Am schluss wird no d'errormessage in ouput ihgfüegt
   document.body.classList.add("error");
   document.getElementById("logo").src = "src/cryptyLogoTransparentError.png";
   document.querySelector(".Output").innerHTML = message;
