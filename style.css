@@ -49,6 +49,7 @@ select {
   align-items: center;
   justify-content: center;
   text-align: center;
+  gap: 10px;
 }
 
 .info {
@@ -107,4 +108,43 @@ nav {
   --tertiary-color: #6e5f15ff;
   --secondary-color: #8e1108;
   --primary-color: #fd1301;
+}
+.caesarDecodeWrapper, .caesarEncodeWrapper{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+textarea{
+  padding: 5px;
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+}
+textarea::placeholder{
+  color: var(--black);
+  opacity: 100%;
+}
+button{
+  background: none;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+}
+input.key{
+  background: none;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+.key::placeholder{
+  color: var(--black);
+}
+
+pre{
+  padding: 0;
+  margin: 0;
 }
