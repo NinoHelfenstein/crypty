@@ -16,9 +16,9 @@ let option1 = `
     </div>
   `;
 
-  let option2 = `
+  let Vigenère = `
   <p class="info">Vigenère-Verschlüsselung</p>
-  <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="key">
+  <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
   <div class="VigenèreEncodeWrapper">
     <input type="text" id="VigenèreInputEncode" placeholder="Text to encode">
     <button type="button" onclick="VigenèreEncode()">Encode</button>
@@ -124,8 +124,8 @@ function chooseMethod() {
     case "1":
       contentWrapper.innerHTML = option1;
       break;
-    case "2":
-      contentWrapper.innerHTML = option2;
+    case "Vigenère":
+      contentWrapper.innerHTML = Vigenère;
       break;
     case "3":
       contentWrapper.innerHTML = option3;
