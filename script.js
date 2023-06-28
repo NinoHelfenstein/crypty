@@ -35,52 +35,66 @@ let option1 = `
 `;
 
 function VigenèreEncode() {
-  //read the DOM Input & Key, set EncyptedText & KeyIndex to uppercase
+  //I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
   let input = document.getElementById("VigenèreInputEncode").value.toUpperCase();
   let key = document.getElementById("VigenèreKey").value.toUpperCase();
+  // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let encryptedText = '';
   let keyIndex = 0;
-  //Loop over each character via KeyCharacter
+  //denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
-    //if charset grösser gleich 65 & charcode kleiner als 90
+    // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
     if (charCode >= 65 && charCode <= 90) {
+      // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
+      //denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
       let encryptedChar = String.fromCharCode(((charCode - 65 + keyChar) % 26) + 65);
       encryptedText += encryptedChar;
+      // und zu gueter Letscht wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
       keyIndex++;
     } else {
+      // falls de Zeichecode ned im Bereich vo 65 - 90 lieht, wird er ned verschlüsselt, sondern gad wieder am encryptedText hinzuegfüeged.
       encryptedText += input.charAt(i);
     }
   }
-  console.log(encryptedText)
-  //return into Output-Element
+  // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
+  console.log(encryptedText);
+  // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
   document.getElementById("VigenèreInputDecode").value = encryptedText;
 }
 
+
 function VigenèreDecode() {
-  //read the DOM Input & Key, set EncyptedText & KeyIndex
+  //I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
   let input = document.getElementById("VigenèreInputDecode").value.toUpperCase();
-  let key = document.getElementById("VigenèreKey").value.toUpperCase()
+  let key = document.getElementById("VigenèreKey").value.toUpperCase();
+  // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let decryptedText = '';
   let keyIndex = 0;
-  //Loop over each character via KeyCharacter
+  //denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
-    //if charset grösser gleich 65 & charcode kleiner als 90
+    // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt
     if (charCode >= 65 && charCode <= 90) {
+      // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
+      //denach wird de Buechstabe verschlüsselt und zum decryptedText hinzugfüeged
       let decryptedChar = String.fromCharCode(((charCode - 65 - keyChar + 26) % 26) + 65);
       decryptedText += decryptedChar;
+      // und ezt wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
       keyIndex++;
     } else {
+      // falls de Zeichecode ned im Bereich vo 65 - 90 lieht, wird er ned verschlüsselt, sondern gad wieder am encryptedText hinzuegfüeged.
       decryptedText += input.charAt(i);
     }
   }
-  console.log(decryptedText)
-  //return into Output-Element
+  // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
+  console.log(decryptedText);
+  // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
   document.getElementById("Output").innerText = decryptedText;
 }
+
 
 let option3 = `
     <p class="info">Info Text</p>
