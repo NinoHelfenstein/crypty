@@ -79,7 +79,7 @@ function VigenèreDecode() {
     if (charCode >= 65 && charCode <= 90) {
       // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
-      //denach wird de Buechstabe verschlüsselt und zum decryptedText hinzugfüeged
+      //denach wird de Buechstabe entschlüsselt und zum encryptedText hinzugfüeged
       let decryptedChar = String.fromCharCode(((charCode - 65 - keyChar + 26) % 26) + 65);
       decryptedText += decryptedChar;
       // und ezt wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
