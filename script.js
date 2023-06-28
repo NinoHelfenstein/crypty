@@ -33,7 +33,7 @@ let option2 = `
     </div>
   `;
 
-let Playfair = `
+let Playfair = `asdf
     <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden immer entfernt</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
     <div class="EncodeWrapper">
