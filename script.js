@@ -28,10 +28,10 @@ let option1 = `
     <input type="text" id="VigenèreInputDecode" placeholder="Text to decode">
     <button type="button" onclick="VigenèreDecode()">Decode</button>
   </div>
-  <div id="VigenèreOutput" class="Output" onclick="copyOutput(VigenèreOutput)">
-    <input type="text" id="VigenèreOutputA" placeholder="Text to decode">
-    <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
-  </div>
+  <div class="OutputWrapper" onclick="copyOutput()">
+  <pre id="Output" class="Output"></pre>
+  <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
+</div>
 `;
 
 function VigenèreEncode() {
@@ -54,14 +54,14 @@ function VigenèreEncode() {
     }
   }
   console.log(encryptedText)
+  //return into Output-Element
   document.getElementById("VigenèreInputDecode").value = encryptedText;
 }
 
 function VigenèreDecode() {
   //read the DOM Input & Key, set EncyptedText & KeyIndex
   let input = document.getElementById("VigenèreInputDecode").value.toUpperCase();
-  let key = document.getElementById("VigenèreKey").value.toUpperCase();
-  console.log(1)
+  let key = document.getElementById("VigenèreKey").value.toUpperCase()
   let decryptedText = '';
   let keyIndex = 0;
   //Loop over each character via KeyCharacter
@@ -77,8 +77,9 @@ function VigenèreDecode() {
       decryptedText += input.charAt(i);
     }
   }
-  //return into Output-element
-  document.getElementById("VigenèreOutput").value = decryptedText;
+  console.log(decryptedText)
+  //return into Output-Element
+  document.getElementById("Output").innerText = decryptedText;
 }
 
 let option3 = `
