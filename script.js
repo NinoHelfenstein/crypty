@@ -17,7 +17,7 @@ let option1 = `
   `;
 
   let Vigenère = `
-  <p class="info">Vigenère-Verschlüsselung</p>
+  <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
   <div class="VigenèreEncodeWrapper">
     <input type="text" id="VigenèreInputEncode" placeholder="Text to encode">
