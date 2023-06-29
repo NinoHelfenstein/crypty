@@ -129,23 +129,26 @@ let Playfair = `
     // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
     let key = document.getElementById("PlayfairKey").value;
     let plaintext = document.getElementById("PlayfairInputEncode").value;
-    var result = isNumber(key);
+    let resultKey = isNumber(key);
     if (!plaintext || !key) {
-      error("You need a Keyword/phrase and a Text to encode");
+      error("You need a Keyword/phrase and a Text to decode");
       return;
     }
     if (/[^a-zA-Z0-9\s]/g.test(plaintext)) {
       error("Contains special characters, won't work.");
       return;
     }
-    if (result == true) {
-      error("Key needs to be a word/phrase");
+    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
+      error("Key needs to be a Word/Phrase");
       return;
     }
 
     let grid = createGrid(key);
     let pairs = createPairs(plaintext);
-    let ciphertext = "";
     for (let i = 0; i < pairs.length; i++) {
       let pair = pairs[i];
       let encryptedPair = encryptPair(pair, grid);
@@ -161,7 +164,7 @@ let Playfair = `
     // han bim teschte bemerkt, dass wenn es Wort verschlüsselt wird, wo ungerade isch und mit X endet zu de Endig "EE", "WW" und "XX" wird. daher han das ebenfalls noma umbaut um de fehler z umgah.
     let key = document.getElementById("PlayfairKey").value;
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
-    var result = isNumber(key);
+    let resultKey = isNumber(key);
     if (!ciphertext || !key) {
       error("You need a Keyword/phrase and a Text to decode");
       return;
@@ -170,7 +173,11 @@ let Playfair = `
       error("Contains special characters, won't work.");
       return;
     }
-    if (result == true) {
+    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
       error("Key needs to be a Word/Phrase");
       return;
     }
