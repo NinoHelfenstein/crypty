@@ -265,11 +265,11 @@ let Playfair = `
   function removeSuffixes(cleanedText) {
     
       if (cleanedText.endsWith("WW")) {
-        return cleanedText.slice(0, -2); // Entferne die letzten beiden Zeichen "WW"
+        return cleanedText.slice(0, -2); // Entfernt di letschte beide Zeiche "WW"
       } else if (cleanedText.endsWith("EE")) {
-        return cleanedText.slice(0, -2); // Entferne die letzten beiden Zeichen "EE"
+        return cleanedText.slice(0, -2); // Entfernt di letschte beide Zeiche "EE"
       } else {
-        return cleanedText; // Das Wort hat kein Suffix "WW" oder "EE"
+        return cleanedText;
       };
   }
 
