@@ -91,13 +91,13 @@ function caesarDecode() {
   let vigenère = `
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
-  <div class="VigenèreEncodeWrapper">
-    <input type="text" id="VigenèreInputEncode" placeholder="Text to encode">
+  <div class="caesarEncodeWrapper">
+    <textarea id="VigenèreInputEncode" rows="4" cols="50" placeholder="Text to encode"></textarea>
     <button type="button" onclick="VigenèreEncode()">Encode</button>
   </div>
   <br>
-  <div class="VigenèreDecodeWrapper">
-    <input type="text" id="VigenèreInputDecode" placeholder="Text to decode">
+  <div class="caesarDecodeWrapper">
+    <textarea id="VigenèreInputDecode" rows="4" cols="50" placeholder="Text to decode"></textarea>
     <button type="button" onclick="VigenèreDecode()">Decode</button>
   </div>
   <div class="OutputWrapper" onclick="copyOutput()">
