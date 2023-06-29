@@ -139,7 +139,7 @@ let Playfair = `
       return;
     }
     if (result == true) {
-      error("Key isn't a word/phrase");
+      error("Key needs to be a word/phrase");
       return;
     }
 
@@ -163,7 +163,7 @@ let Playfair = `
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
     var result = isNumber(key);
     if (!ciphertext || !key) {
-      error("You need a Keyword/phrase and a Text to encode");
+      error("You need a Keyword/phrase and a Text to decode");
       return;
     }
     if (/[^a-zA-Z0-9\s]/g.test(ciphertext)) {
@@ -332,17 +332,6 @@ let Playfair = `
     decryptedPair += grid[row1 * 5 + col1];
     decryptedPair += grid[row2 * 5 + col2];
     return decryptedPair;
-  }
-
-  function removeSuffixes(cleanedText) {
-    
-      if (cleanedText.endsWith("WW")) {
-        return cleanedText.slice(0, -2); // Entfernt di letschte beide Zeiche "WW"
-      } else if (cleanedText.endsWith("EE")) {
-        return cleanedText.slice(0, -2); // Entfernt di letschte beide Zeiche "EE"
-      } else {
-        return cleanedText;
-      };
   }
 
   function isNumber(variable) {
