@@ -193,10 +193,10 @@ function chooseMethod() {
   contentWrapper = document.getElementById("contentWrapper");
   contentWrapper.innerHTML = "";
   switch (value) {
-    case "Caesar":
+    case "caesar":
       contentWrapper.innerHTML = caesar;
       break;
-    case "Vigenère":
+    case "vigenère":
       contentWrapper.innerHTML = vigenère;
       break;
     case "3":
@@ -219,3 +219,10 @@ function copyOutput() {
   const output = document.getElementById("Output");
   navigator.clipboard.writeText(output.innerHTML);
 }
+
+
+// TO WORK OUT THE MODULO BUG
+// web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
+https: Number.prototype.mod = function (n) {
+  return ((this % n) + n) % n;
+};
