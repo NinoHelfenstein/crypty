@@ -1,22 +1,94 @@
-let option1 = `
-    <p class="info">Info Text</p>
-    <input type="number" name="option1Key" id="option1Key" placeholder="key">
-    <div class="EncodeWrapper">
-      <input type="text" id="option1InputEncode" placeholder="Text to encode">
-      <button type="button" onclick="option1Encode()">Encode</button>
+let caesar = `
+<p class="info">You can only use normal characters and numbers. Space will remain a space. The key can only be a natural number</p>
+<input type="number" name="caesarKey" id="caesarKey" class="key"  placeholder="key" min=0>
+    <div class="caesarEncodeWrapper">
+      <textarea id="caesarInputEncode" rows="4" cols="50" placeholder="Text to encode"></textarea>
+      <button type="button" onclick="caesarEncode()">Encode</button>
     </div>
     <br>
-    <div class="option1DecodeWrapper">
-      <input type="text" id="option1InputDecode" placeholder="Text to decode">
-      <button type="button" onclick="option1Decode()">Decode</button>
+    <div class="caesarDecodeWrapper">
+      <textarea id="caesarInputDecode" rows="4" cols="50" placeholder="Text to decode"></textarea>
+      <button type="button" onclick="caesarDecode()">Decode</button>
     </div>
     <div class="OutputWrapper" onclick="copyOutput()">
-    <div id="Output" class="Output"></div>
+      <pre id="Output" class="Output"></pre>
       <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
     </div>
   `;
 
-  let Vigenère = `
+const caesarString =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+
+function caesarEncode() {
+  // Da bechömemer de text und de key(de machemer no en float) nacher luegemer öb beides usgfühlt isch udn denn wird gluegt öbs spezial zeiche hed.
+  // falls es speziall zeiche hed wird en error gmacht. nacher wird gluegt öb de key valid isch und denn wird res difiniert.
+  // nacher wird d'längi vom text gloopt und bi jedem zeiche glugt öbs space isch und sucht bim z'gliche zeiche plus de key vom caesarString gno.
+  // am schluss wird no das zeiche res hinzuegfüegt. das ganze wird denn mit innerhtml is dokument ihgfüegt.
+  let text = document.getElementById("caesarInputEncode").value;
+  let key = parseFloat(document.getElementById("caesarKey").value);
+  if (!text || !key) {
+    error("You need a Key and a Text to encode");
+    return;
+  }
+  if (/[^a-zA-Z0-9\s]/g.test(text)) {
+    error("Contains special characters, won't work.");
+    return;
+  }
+  if (key % 1 !== 0 || key < 0) {
+    error("Key isn't a natural number");
+    return;
+  }
+  let res = "";
+  for (let i = 0; i < text.length; i++) {
+    let caesarStringIndex = caesarString.indexOf(text.charAt(i));
+    if (/\s/.test(text.charAt(i))) {
+      console.log("Current character is a space");
+      res = res.concat(text.charAt(i));
+    } else {
+      let char = caesarStringIndex + key;
+      char = char.mod(caesarString.length);
+      res = res.concat(caesarString.charAt(char));
+    }
+  }
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerHTML = res;
+}
+
+function caesarDecode() {
+  // Da passiert s'gliche wie bim Encode eifach das de Key minus grechned wird und ned plus. 
+  let text = document.getElementById("caesarInputDecode").value;
+  let key = parseFloat(document.getElementById("caesarKey").value);
+  if (!text || !key) {
+    error("You need a Key and a Text to encode");
+    return;
+  }
+  if (/[^a-zA-Z0-9\s]/g.test(text)) {
+    error("Contains special characters, won't work.");
+    return;
+  }
+  if (key % 1 !== 0 || key < 0) {
+    error("Key isn't a natural number");
+    return;
+  }
+  let res = "";
+  for (let i = 0; i < text.length; i++) {
+    let caesarStringIndex = caesarString.indexOf(text.charAt(i));
+    if (/\s/.test(text.charAt(i))) {
+      console.log("Current character is a space");
+      res = res.concat(text.charAt(i));
+    } else {
+      let char = caesarStringIndex - key;
+      char = char.mod(caesarString.length);
+      res = res.concat(caesarString.charAt(char));
+    }
+  }
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerHTML = res;
+}
+
+  let vigenère = `
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
   <div class="VigenèreEncodeWrapper">
@@ -121,11 +193,11 @@ function chooseMethod() {
   contentWrapper = document.getElementById("contentWrapper");
   contentWrapper.innerHTML = "";
   switch (value) {
-    case "1":
-      contentWrapper.innerHTML = option1;
+    case "Caesar":
+      contentWrapper.innerHTML = caesar;
       break;
     case "Vigenère":
-      contentWrapper.innerHTML = Vigenère;
+      contentWrapper.innerHTML = vigenère;
       break;
     case "3":
       contentWrapper.innerHTML = option3;
