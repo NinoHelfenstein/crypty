@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How does Crypty work</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <h1>How does the Caesar cipher work?</h1>
+      The caesar cipher does work by shifting the char in the alphabet. Crypty
+      uses
+      <code
+        >"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"</code
+      >
+      to shift.
+      <br />
+      What this does mean is if you have the Key 1 and the Text
+      <code>ABC</code> you are going to get <code>BCD</code>, same with
+      <code>AbC</code> is going to be <code>bCd</code>.
+      <br />
+      It is important to understand that the program checks every character and
+      them shifts it by the amount of your key. If the key goes over the length
+      of our alphabet it goes to the start again. If the programm recognizes a
+      space or line break it is going to skip it and continue with the next
+      character. This means every space and line break are going to result in a
+      space or line break.
+
+      <h1>How does the Vigenère cipher work?</h1>
+      The Vigenère cipher does work by using a Keyword or Phrase as Key. If the Text to Encode is longer than the Key itself we multiply the key until Key & TextToEncode have the same length and convert it both to uppercase. Then each letter of the plaintext is shifted based on the corresponding letter in the Keyword. Crypty
+      uses
+      <code
+        >"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"</code
+      >
+      to shift.
+      <br />
+      What this does mean is if you have the Key "Key" and the plaintext
+      <code>Hello</code>. You are going to multiply the Key until it has the same length as <code>Hello</code> so the final Key will be "KEYKE". Now we shift each letter of the plaintext base on the corresponding letter in the Keyword/phrase. For the first Letter that would be "H" shifted with letter "K" (=10) the second would be "E" shifted with the keyletter "E" and so on.
+      so <code>Hello</code> is going to be <code>RIJVS</code>.
+      <br />
+      It is important to understand that the program only loops over the Letters A-Za-z.
+      If you use a Number inside the TextToEncode, it will always display the real number 
+      and not shift over it. Because we shift each letter in the plaintext with a new 
+      value as from the Key, there isn't a good chance to find out the Key. But if we 
+      use the same Key more than once, somebody might be able to find it out and use it 
+      for illegal purposes so always make new Keys. If there are Spaces in the plaintext, those wont be shifted, so there will be no spaces in the Decode Output.
+
+
+    
+      <h1>How does the ****** ****** work?</h1>
+    </main>
+    <h2>If you want to see the source code you can checkout this repository:
+        <a href="https://github.com/NinoHelfenstein/crypty.git">https://github.com/NinoHelfenstein/crypty.git</a>
+    </h2>
+    <footer>
+      <hr />
+      <nav>
+        <a
+          href="howDoesCryptyWork.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Learn about the different decrypting methodes</a
+        >
+        <a href="https://www.flaticon.com/free-icons/copy" title="copy icons"
+          >Copy icon created by Freepik - Flaticon</a
+        >
+      </nav>
+    </footer>
+  </body>
+</html>
