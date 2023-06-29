@@ -56,7 +56,24 @@
 
 
     
-      <h1>How does the ****** ****** work?</h1>
+      <h1>How does the Playfair cipher work?</h1>
+      The Playfair cipher does work by using a Keyword or Phrase as Key and a Textinput. Crypty
+      uses
+      <code
+        >"ABCDEFGHIKLMNOPQRSTUVWXYZ"</code
+      >
+      to shift.
+      <br />
+      What this does mean is if you have the "Key" and the "plaintext" you can start by making a 5x5 table, in which we add our Key in the first row(if the key is longer than 5, it goes to the second line of the table). Each letter is for one field in the table and there are no duplicates allowed. after we inserted the key, we start adding the other letters(from the alphabet) that are missing. Only the letter "J" is excepted (because I = J). after that we have to use the text we want to encrypt.
+      first we split the Text/Phrase in pairs of 2 letters. if there are doubleletters we separate them  with an X. Z.B. "Hello" would be "He lx lo". If the number of letter in the text is odd, we have to add an X at the last position, because we need a even number of letters for the pairs. then we have to use the rules to find the encrypted letter.
+      1. If both letters from the pair are on the same row, the text shifts right. if one of the letters is at the table border, we remove the letter from the right side and add it on the left side in the sam row.
+      2. If both letters from the pair create a square(always 2 sides have to be even) the letters move inside the square from the side it was to the other side on the same row.
+      3. If both letters from the pair are on the same column, the letter shift down once.
+      with the Key "World" our Plaintext <code>Hello</code> would encrypt to <code>KBRYDR</code>.
+      <br />
+      It is important to understand that the program only uses strings with the Letters A-Z(except J).
+      Because the Playfair Method has some special Problems, i mad an extra Code which will try to remove the Xs from doubleletters and endings. While i tried the Playfair cipher, i also saw that there are some similar Problems with "E" & "W". so i added extra code to remove them too.
+      Also i added errorMessages for Problems with numbers and special chars, so there shouldn't be many problems.
     </main>
     <h2>If you want to see the source code you can checkout this repository:
         <a href="https://github.com/NinoHelfenstein/crypty.git">https://github.com/NinoHelfenstein/crypty.git</a>
