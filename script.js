@@ -61,7 +61,7 @@ function VigenèreEncode() {
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
   console.log(encryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
-  document.getElementById("VigenèreInputDecode").value = encryptedText;
+  document.getElementById("Output").innerText = encryptedText;
 }
 
 
