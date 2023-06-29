@@ -41,14 +41,14 @@ function VigenèreEncode() {
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let encryptedText = '';
   let keyIndex = 0;
-  //denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
+  // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
     // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
     if (charCode >= 65 && charCode <= 90) {
       // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
-      //denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
+      // denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
       let encryptedChar = String.fromCharCode(((charCode - 65 + keyChar) % 26) + 65);
       encryptedText += encryptedChar;
       // und zu gueter Letscht wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
@@ -66,20 +66,20 @@ function VigenèreEncode() {
 
 
 function VigenèreDecode() {
-  //I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
+  // I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
   let input = document.getElementById("VigenèreInputDecode").value.toUpperCase();
   let key = document.getElementById("VigenèreKey").value.toUpperCase();
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let decryptedText = '';
   let keyIndex = 0;
-  //denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
+  // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
     // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt
     if (charCode >= 65 && charCode <= 90) {
       // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
-      //denach wird de Buechstabe entschlüsselt und zum encryptedText hinzugfüeged
+      // denach wird de Buechstabe entschlüsselt und zum encryptedText hinzugfüeged
       let decryptedChar = String.fromCharCode(((charCode - 65 - keyChar + 26) % 26) + 65);
       decryptedText += decryptedChar;
       // und ezt wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
