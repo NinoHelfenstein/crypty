@@ -52,9 +52,25 @@ let Playfair = `
   `;
 
   function PlayfairEncode() {
+    // Hier wird di Schlussendlichi FUnction Encode ufgruefe, welli de Key as createGrid & de plaintext as createPairs übergit
+    // denach wird über jedes Paar gloopt und encrypted ahand vo de Pairs & gridtabelle mit em Key und zum ciphertext hinzugfüeged
+    // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
     let key = document.getElementById("PlayfairKey").value;
     let plaintext = document.getElementById("PlayfairInputEncode").value;
-    console.log(key, plaintext);
+    var result = isNumber(key);
+    if (!plaintext || !key) {
+      error("You need a Keyword/phrase and a Text to encode");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(plaintext)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (result == true) {
+      error("Key isn't a word/phrase");
+      return;
+    }
+
     let grid = createGrid(key);
     let pairs = createPairs(plaintext);
     let ciphertext = "";
@@ -63,16 +79,34 @@ let Playfair = `
       let encryptedPair = encryptPair(pair, grid);
       ciphertext += encryptedPair;
     }
-    document.getElementById("PlayfairInputDecode").value = ciphertext;
+    document.getElementById("Output").innerText = ciphertext;
   }
   
   function PlayfairDecode() {
+    // Hier wird di Schlussendlichi FUnction Decode ufgruefe, welli de Key as createGrid & de ciphertext(verschlüsselte Text) as createPairs übergit
+    // denach wird über jedes Paar gloopt und decrypted ahand vo de gridtabelle mit em Key und zum Plaintext hinzugfüeged
+    // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
+    // han bim teschte bemerkt, dass wenn es Wort verschlüsselt wird, wo ungerade isch und mit X endet zu de Endig "EE", "WW" und "XX" wird. daher han das ebenfalls noma umbaut um de fehler z umgah.
     let key = document.getElementById("PlayfairKey").value;
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
+    var result = isNumber(key);
+    if (!ciphertext || !key) {
+      error("You need a Keyword/phrase and a Text to encode");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(ciphertext)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (result == true) {
+      error("Key needs to be a Word/Phrase");
+      return;
+    }
+
     let grid = createGrid(key)
     let pairs = createPairs(ciphertext);
     let plaintext = "";
-    let text = "";
+    let a = "";
     for (let i = 0; i < pairs.length; i++) {
       let pair = pairs[i];
       let decryptedPair = decryptPair(pair, grid);
@@ -81,15 +115,31 @@ let Playfair = `
   
     let cleanedText = plaintext.replace(/(.)(X)\1/g, "$1$1");
     cleanedText = cleanedText.replace(/X$/, "");
+
     if (cleanedText.length % 2 === 1 && cleanedText.charAt(cleanedText.length - 1) === "X") {
-      return cleanedText.slice(0, -1);
+      finalText = cleanedText.slice(0, -1);
+      document.getElementById("Output").innerText = finalText;
+
     }
-    document.getElementById("Output").innerText = cleanedText;
+    else if (cleanedText.endsWith("WW")) {
+      finalText = cleanedText.slice(0, -2);
+      document.getElementById("Output").innerText = finalText;
+
+    }
+    else if (cleanedText.endsWith("EE")) {
+      finalText = cleanedText.slice(0, -2);
+      document.getElementById("Output").innerText = finalText;
+
+    }
+    else {
+      finalText = cleanedText;
+      document.getElementById("Output").innerText = finalText;
+    }
+
   }
   
-  // Hilfsfunktionen
-  
   function createGrid(key) {
+    // Hier wird es Gitter(grid 5x5) erstellt, und de Key hinzugfüegt. dabi wird de Key vo obe links her startend is raschter Igfüegt. Achtung isch en Buchstabe bereits einmal itreit, chunt er im Raster keis zweits mal vor. usserdem wird "J" im raster mit "I" ersetzt(daher 5x5 = 25)
     let grid = [];
     let alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
     
@@ -103,11 +153,11 @@ let Playfair = `
         grid.push(letter);
       }
     }
-    
     return grid;
   }
   
   function createPairs(text) {
+    // Hier wird de Plaintext i zweiergruppe zerteilt z.B. "HelloWorld" wird "zu He lx lo Wo rl dx". isch d Azahl Zeiche ungrad wird am Endi vom Text no es X aghängt ums grad z mache, chunt en Buchstabe doppelt hinterenander vor, so werdet die beide mit emene X vonenander trennt z.B. "Hello" wird zu "He lx lo"
     text = text.toUpperCase().replace(/J/g, "I");
     text = text.replace(/[^A-Z]/g, "");
     
@@ -128,11 +178,16 @@ let Playfair = `
       pairs.push(pair);
       i += 2;
     }
-    
     return pairs;
   }
   
   function encryptPair(pair, grid) {
+    // i dere funktion werdet di bereits ufgeteilte Paare vom Plaintexts is Grid(5x5) igfüegt.
+    // Dazu träged mir euse Key von Obe Links startend i und gend nach rechts. isch ein Buchstabe im grid so chunt er det keis zweits mal vor.
+    // als nächschtes nehmed mir die ufgeteilte Päärli und sueched jede Buechstabe devo ufem Grid. dazu gits aber einig i regle wo münd beachtet werde.
+    // Rule1: Sind die Beide Plaintexschtbuechstabe i deselbe Zile, werdet d Buechstabe mit em folgende Buechstabe(rechts) ersetzt. Befindet sich de Buechstabe am üssersertschte Rand(rechts) und es folgt kein andere uf die recht site, so wird de Buechstabe uf di link site ganz links vo de gliche zeile gshiftet
+    // Rule2: ergit sich dur d verwendig vo de Buechstabe es Rechteck(z.B. 3x4) so werdet d Buechstabe dur Buechstabe vo de andere ecke vo de gliche Zile ersetzt
+    // Rule3: sind beidi Buechstabe id de selbe spalte, werdet d Buechstabe dur die i de spalte abwärts folgende Buechstabe ersetzt. staht en Buechstabe am untere Rand, wird de erschti(vom obere rand) buechstabe i de gliche spalte als schlüsselte buchstabe gewählt.
     let char1 = pair.charAt(0);
     let char2 = pair.charAt(1);
     let row1, col1, row2, col2;
@@ -166,11 +221,11 @@ let Playfair = `
     
     encryptedPair += grid[row1 * 5 + col1];
     encryptedPair += grid[row2 * 5 + col2];
-    
     return encryptedPair;
   }
   
   function decryptPair(pair, grid) {
+    // gegeteil vo encryptPair, nimmt ciphertext, splitted en uf i Pairs und arbeited sich logisch betrachtet rückwerts dur d verschlüsselig
     let char1 = pair.charAt(0);
     let char2 = pair.charAt(1);
     let row1, col1, row2, col2;
@@ -204,8 +259,22 @@ let Playfair = `
     
     decryptedPair += grid[row1 * 5 + col1];
     decryptedPair += grid[row2 * 5 + col2];
-    
     return decryptedPair;
+  }
+
+  function removeSuffixes(cleanedText) {
+    
+      if (cleanedText.endsWith("WW")) {
+        return cleanedText.slice(0, -2); // Entferne die letzten beiden Zeichen "WW"
+      } else if (cleanedText.endsWith("EE")) {
+        return cleanedText.slice(0, -2); // Entferne die letzten beiden Zeichen "EE"
+      } else {
+        return cleanedText; // Das Wort hat kein Suffix "WW" oder "EE"
+      };
+  }
+
+  function isNumber(variable) {
+    return !isNaN(variable);
   }
   
 
