@@ -46,7 +46,7 @@ function VigenèreEncode() {
     let charCode = input.charCodeAt(i);
     // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
     if (charCode >= 65 && charCode <= 90) {
-      // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
+      // stimmt das sowit, wird denach hier de ensprechendi Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
       // denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
       let encryptedChar = String.fromCharCode(((charCode - 65 + keyChar) % 26) + 65);
