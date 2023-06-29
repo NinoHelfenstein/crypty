@@ -149,6 +149,7 @@ let Playfair = `
 
     let grid = createGrid(key);
     let pairs = createPairs(plaintext);
+    let ciphertext = "";
     for (let i = 0; i < pairs.length; i++) {
       let pair = pairs[i];
       let encryptedPair = encryptPair(pair, grid);
@@ -200,7 +201,7 @@ let Playfair = `
       document.getElementById("Output").innerText = finalText;
 
     }
-    else if (cleanedText.endsWith("WW")) {
+    else if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE"))) {
       finalText = cleanedText.slice(0, -2);
       document.getElementById("Output").innerText = finalText;
 
