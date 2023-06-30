@@ -109,12 +109,12 @@ let Playfair = `
     <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden immer entfernt</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
     <div class="EncodeWrapper">
-      <input type="text" id="PlayfairInputEncode" placeholder="Text to encode">
+      <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
       <button type="button" onclick="PlayfairEncode()">Encode</button>
     </div>
     <br>
     <div class="PlayfairDecodeWrapper">
-      <input type="text" id="PlayfairInputDecode" placeholder="Text to decode">
+      <textarea id="PlayfairInputDecode" placeholder="Text to decode"></textarea>
       <button type="button" onclick="PlayfairDecode()">Decode</button>
     </div>
     <div class="OutputWrapper" onclick="copyOutput()">
