@@ -171,6 +171,8 @@ let Playfair = `
     // han bim teschte bemerkt, dass wenn es Wort verschlüsselt wird, wo ungerade isch und mit X endet zu de Endig "EE", "WW" und "XX" wird. daher hani das ebenfalls noma umbaut um de fehler z umgah.
     let key = document.getElementById("PlayfairKey").value;
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
+    console.log(ciphertext)
+
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
       error("You need a Keyword/phrase and a Text to decode");
@@ -189,6 +191,13 @@ let Playfair = `
       return;
     }
 
+    if (ciphertext.length % 2 === 1) {
+      ciphertext += "+";
+    }
+    console.log(ciphertext)
+
+    
+
     let grid = createGrid(key)
     let pairs = createPairs(ciphertext);
     let plaintext = "";
@@ -200,23 +209,8 @@ let Playfair = `
     }
   
     let cleanedText = plaintext.replace(/(.)(X)\1/g, "$1$1");
-    cleanedText = cleanedText.replace(/X$/, "");
-
-    if (cleanedText.length % 2 === 1 && cleanedText.charAt(cleanedText.length - 1) === "X") {
-      finalText = cleanedText.slice(0, -1);
-      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
-      document.body.classList.remove("error");
-      document.getElementById("Output").innerText = finalText;
-
-    }
-    else if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE"))) {
-      finalText = cleanedText.slice(0, -2);
-      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
-      document.body.classList.remove("error");
-      document.getElementById("Output").innerText = finalText;
-
-    }
-    else if (cleanedText.endsWith("EE")) {
+//Hier entferne mir na d character wo chented für fehler sorge wie z.B. WW usw
+    if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE")) || (cleanedText.endsWith("FF")) || (cleanedText.endsWith("SS"))) {
       finalText = cleanedText.slice(0, -2);
       document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
       document.body.classList.remove("error");
@@ -229,9 +223,8 @@ let Playfair = `
       document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
     }
-
   }
-  
+
   function createGrid(key) {
     // Hier wird es Gitter(grid 5x5) erstellt, und de Key hinzugfüegt. dabi wird de Key vo obe links her startend is raschter Igfüegt. Achtung isch en Buchstabe bereits einmal itreit, chunt er im Raster keis zweits mal vor. usserdem wird "J" im raster mit "I" ersetzt(daher 5x5 = 25)
     let grid = [];
