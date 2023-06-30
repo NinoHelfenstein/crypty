@@ -88,22 +88,126 @@ function caesarDecode() {
   document.getElementById("Output").innerHTML = res;
 }
 
-let option2 = `
-    <p class="info">Info Text</p>
-    <input type="number" name="option2Key" id="option2Key" placeholder="key">
-    <div class="EncodeWrapper">
-      <input type="text" id="option2InputEncode" placeholder="Text to encode">
-      <button type="button" onclick="option2Encode()">Encode</button>
-    </div>
-    <br>
-    <div class="option2DecodeWrapper">
-      <input type="text" id="option2InputDecode" placeholder="Text to decode">
-      <button type="button" onclick="option2Decode()">Decode</button>
-    </div>
-    <div id="option2Output" class="Output" onclick="copyOutput(option1Output)">
-      <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
-    </div>
-  `;
+  let vigenère = `
+  <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
+  <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
+  <div class="caesarEncodeWrapper">
+    <textarea id="VigenèreInputEncode" rows="4" cols="50" placeholder="Text to encode"></textarea>
+    <button type="button" onclick="VigenèreEncode()">Encode</button>
+  </div>
+  <br>
+  <div class="caesarDecodeWrapper">
+    <textarea id="VigenèreInputDecode" rows="4" cols="50" placeholder="Text to decode"></textarea>
+    <button type="button" onclick="VigenèreDecode()">Decode</button>
+  </div>
+  <div class="OutputWrapper" onclick="copyOutput()">
+  <pre id="Output" class="Output"></pre>
+  <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
+</div>
+`;
+
+function VigenèreEncode() {
+  //I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
+  let input = document.getElementById("VigenèreInputEncode").value.toUpperCase();
+  let key = document.getElementById("VigenèreKey").value.toUpperCase();
+  // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
+  let encryptedText = '';
+  let keyIndex = 0;
+
+  let resultKey = isNumber(key);
+    if (!input || !key) {
+      error("You need a Keyword/phrase and a Text to decode");
+      return;
+    }
+    if (/[^a-zA-Z\s]/g.test(input)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (/[^a-zA-Z\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
+      error("Key needs to be a Word/Phrase");
+      return;
+    }
+
+  // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
+  for (let i = 0; i < input.length; i++) {
+    let charCode = input.charCodeAt(i);
+    // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
+    if (charCode >= 65 && charCode <= 90) {
+      // stimmt das sowit, wird denach hier de ensprechendi Zeichecode vom Schlüsselbuechstabe ermittelt
+      let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
+      // denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
+      let encryptedChar = String.fromCharCode(((charCode - 65 + keyChar) % 26) + 65);
+      encryptedText += encryptedChar;
+      // und zu gueter Letscht wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
+      keyIndex++;
+    } else {
+      // falls de Zeichecode ned im Bereich vo 65 - 90 lieht, wird er ned verschlüsselt, sondern gad wieder am encryptedText hinzuegfüeged.
+      encryptedText += input.charAt(i);
+    }
+  }
+  // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
+  console.log(encryptedText);
+  // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerText = encryptedText;
+}
+
+
+function VigenèreDecode() {
+  // I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
+  let input = document.getElementById("VigenèreInputDecode").value.toUpperCase();
+  let key = document.getElementById("VigenèreKey").value.toUpperCase();
+  // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
+  let decryptedText = '';
+  let keyIndex = 0;
+  console.log(key)
+  let resultKey = isNumber(key);
+    if (!input || !key) {
+      error("You need a Keyword/phrase and a Text to decode");
+      return;
+    }
+    if (/[^a-zA-Z\s]/g.test(input)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (/[^a-zA-Z\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
+      error("Key needs to be a Word/Phrase");
+      return;
+    }
+  // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
+  for (let i = 0; i < input.length; i++) {
+    let charCode = input.charCodeAt(i);
+    // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt
+    if (charCode >= 65 && charCode <= 90) {
+      // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
+      let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
+      // denach wird de Buechstabe entschlüsselt und zum encryptedText hinzugfüeged
+      let decryptedChar = String.fromCharCode(((charCode - 65 - keyChar + 26) % 26) + 65);
+      decryptedText += decryptedChar;
+      // und ezt wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
+      keyIndex++;
+    } else {
+      // falls de Zeichecode ned im Bereich vo 65 - 90 lieht, wird er ned verschlüsselt, sondern gad wieder am encryptedText hinzuegfüeged.
+      decryptedText += input.charAt(i);
+    }
+  }
+  // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
+  console.log(decryptedText);
+  // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
+  document.getElementById("Output").innerText = decryptedText;
+}
+
 
 let option3 = `
     <p class="info">Info Text</p>
@@ -133,8 +237,8 @@ function chooseMethod() {
     case "caesar":
       contentWrapper.innerHTML = caesar;
       break;
-    case "2":
-      contentWrapper.innerHTML = option2;
+    case "vigenère":
+      contentWrapper.innerHTML = vigenère;
       break;
     case "3":
       contentWrapper.innerHTML = option3;
@@ -143,7 +247,6 @@ function chooseMethod() {
 }
 
 function error(message) {
-  // Es wird am Body d'class error hinzugfüegt und nacher s'bild vom crypty gändered. Am schluss wird no d'errormessage in ouput ihgfüegt
   document.body.classList.add("error");
   document.getElementById("logo").src = "src/cryptyLogoTransparentError.png";
   document.querySelector(".Output").innerHTML = message;
@@ -158,8 +261,13 @@ function copyOutput() {
   navigator.clipboard.writeText(output.innerHTML);
 }
 
+
 // TO WORK OUT THE MODULO BUG
 // web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
 https: Number.prototype.mod = function (n) {
   return ((this % n) + n) % n;
 };
+
+function isNumber(variable) {
+  return !isNaN(variable);
+}
