@@ -110,7 +110,7 @@ let option2 = `
   `;
 
 let Playfair = `
-    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden immer entfernt.</p>
+    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
     <div class="caesarEncodeWrapper">
       <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
@@ -189,19 +189,11 @@ let Playfair = `
     if (resultKey == true) {
       error("Key needs to be a Word/Phrase");
       return;
-    }
-
-    if (ciphertext.length % 2 === 1) {
-      ciphertext += "+";
-    }
-    console.log(ciphertext)
-
-    
+    }    
 
     let grid = createGrid(key)
     let pairs = createPairs(ciphertext);
     let plaintext = "";
-    let a = "";
     for (let i = 0; i < pairs.length; i++) {
       let pair = pairs[i];
       let decryptedPair = decryptPair(pair, grid);
