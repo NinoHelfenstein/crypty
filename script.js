@@ -110,7 +110,7 @@ let option2 = `
   `;
 
 let Playfair = `
-    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden immer entfernt</p>
+    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden immer entfernt.</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
     <div class="caesarEncodeWrapper">
       <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
@@ -138,11 +138,11 @@ let Playfair = `
       error("You need a Keyword/phrase and a Text to decode");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(plaintext)) {
+    if (/[^a-zA-Z\s]/g.test(plaintext)) {
       error("Contains special characters, won't work.");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+    if (/[^a-zA-Z\s]/g.test(key)) {
       error("Contains special characters, won't work.");
       return;
     }
@@ -176,12 +176,12 @@ let Playfair = `
       error("You need a Keyword/phrase and a Text to decode");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(ciphertext)) {
-      error("Contains special characters, won't work.");
+    if (/[^a-zA-Z\s]/g.test(ciphertext)) {
+      error("Contains special characters or numbers, won't work.");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(key)) {
-      error("Contains special characters, won't work.");
+    if (/[^a-zA-Z\s]/g.test(key)) {
+      error("Contains special characters or numbers, won't work.");
       return;
     }
     if (resultKey == true) {
