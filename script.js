@@ -119,11 +119,11 @@ function VigenèreEncode() {
       error("You need a Keyword/phrase and a Text to decode");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(input)) {
+    if (/[^a-zA-Z\s]/g.test(input)) {
       error("Contains special characters, won't work.");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+    if (/[^a-zA-Z\s]/g.test(key)) {
       error("Contains special characters, won't work.");
       return;
     }
@@ -171,11 +171,11 @@ function VigenèreDecode() {
       error("You need a Keyword/phrase and a Text to decode");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(input)) {
+    if (/[^a-zA-Z\s]/g.test(input)) {
       error("Contains special characters, won't work.");
       return;
     }
-    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+    if (/[^a-zA-Z\s]/g.test(key)) {
       error("Contains special characters, won't work.");
       return;
     }
