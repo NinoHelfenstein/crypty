@@ -113,6 +113,25 @@ function VigenèreEncode() {
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let encryptedText = '';
   let keyIndex = 0;
+
+  let resultKey = isNumber(key);
+    if (!input || !key) {
+      error("You need a Keyword/phrase and a Text to decode");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(input)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
+      error("Key needs to be a Word/Phrase");
+      return;
+    }
+
   // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
@@ -133,6 +152,8 @@ function VigenèreEncode() {
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
   console.log(encryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
   document.getElementById("Output").innerText = encryptedText;
 }
 
@@ -144,6 +165,24 @@ function VigenèreDecode() {
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let decryptedText = '';
   let keyIndex = 0;
+  console.log(key)
+  let resultKey = isNumber(key);
+    if (!input || !key) {
+      error("You need a Keyword/phrase and a Text to decode");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(input)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (/[^a-zA-Z0-9\s]/g.test(key)) {
+      error("Contains special characters, won't work.");
+      return;
+    }
+    if (resultKey == true) {
+      error("Key needs to be a Word/Phrase");
+      return;
+    }
   // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
@@ -164,6 +203,8 @@ function VigenèreDecode() {
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
   console.log(decryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
+  document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+  document.body.classList.remove("error");
   document.getElementById("Output").innerText = decryptedText;
 }
 
@@ -226,3 +267,7 @@ function copyOutput() {
 https: Number.prototype.mod = function (n) {
   return ((this % n) + n) % n;
 };
+
+function isNumber(variable) {
+  return !isNaN(variable);
+}
