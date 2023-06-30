@@ -155,6 +155,8 @@ let Playfair = `
       let encryptedPair = encryptPair(pair, grid);
       ciphertext += encryptedPair;
     }
+    document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+    document.body.classList.remove("error");
     document.getElementById("Output").innerText = ciphertext;
   }
   
@@ -198,21 +200,29 @@ let Playfair = `
 
     if (cleanedText.length % 2 === 1 && cleanedText.charAt(cleanedText.length - 1) === "X") {
       finalText = cleanedText.slice(0, -1);
+      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+      document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
 
     }
     else if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE"))) {
       finalText = cleanedText.slice(0, -2);
+      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+      document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
 
     }
     else if (cleanedText.endsWith("EE")) {
       finalText = cleanedText.slice(0, -2);
+      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+      document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
 
     }
     else {
       finalText = cleanedText;
+      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+      document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
     }
 
