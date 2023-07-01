@@ -120,11 +120,11 @@ function VigenèreEncode() {
       return;
     }
     if (/[^a-zA-Z\s]/g.test(input)) {
-      error("Contains special characters, won't work.");
+      error("Contains special characters or numbers, won't work.");
       return;
     }
     if (/[^a-zA-Z\s]/g.test(key)) {
-      error("Contains special characters, won't work.");
+      error("Contains special characters or numbers, won't work.");
       return;
     }
     if (resultKey == true) {
@@ -135,6 +135,8 @@ function VigenèreEncode() {
   // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
+    let charLetter = input.charAt(i);
+    
     // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
     if (charCode >= 65 && charCode <= 90) {
       // stimmt das sowit, wird denach hier de ensprechendi Zeichecode vom Schlüsselbuechstabe ermittelt
@@ -154,8 +156,9 @@ function VigenèreEncode() {
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
-  document.getElementById("Output").innerText = encryptedText;
+  document.getElementById("Output").innerHTML = encryptedText;
 }
+
 
 
 function VigenèreDecode() {
@@ -165,6 +168,7 @@ function VigenèreDecode() {
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
   let decryptedText = '';
   let keyIndex = 0;
+  //errormessages für special chars & numbers
   console.log(key)
   let resultKey = isNumber(key);
     if (!input || !key) {
@@ -172,11 +176,11 @@ function VigenèreDecode() {
       return;
     }
     if (/[^a-zA-Z\s]/g.test(input)) {
-      error("Contains special characters, won't work.");
+      error("Contains special characters or numbers, won't work.");
       return;
     }
     if (/[^a-zA-Z\s]/g.test(key)) {
-      error("Contains special characters, won't work.");
+      error("Contains special characters or numbers, won't work.");
       return;
     }
     if (resultKey == true) {
@@ -205,7 +209,7 @@ function VigenèreDecode() {
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
-  document.getElementById("Output").innerText = decryptedText;
+  document.getElementById("Output").innerHTML = decryptedText;
 }
 
 
