@@ -225,7 +225,7 @@ function VigenèreDecode() {
 }
 
 let Playfair = `
-    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br>
+    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode(Wort) & Schlüssel die beide ein Wort sind.<br>
     Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden<br>
     X wird zum Schluss noch herausgesucht und entfernt</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
@@ -249,9 +249,9 @@ let Playfair = `
     // Hier wird di Schlussendlichi FUnction Encode ufgruefe, welli de Key as createGrid & de plaintext as createPairs übergit
     // denach wird über jedes Paar gloopt und encrypted ahand vo de Pairs & gridtabelle mit em Key und zum ciphertext hinzugfüeged
     // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
-    let length = document.getElementById("PlayfairInputEncode").value.length;
     let key = document.getElementById("PlayfairKey").value;
     let plaintext = document.getElementById("PlayfairInputEncode").value;
+    let length = plaintext.replace(/\s/g, "").length;
     //errormessages für special chars und numbers in plaintext/key
     let resultKey = isNumber(key);
     if (!plaintext || !key) {
@@ -297,16 +297,18 @@ let Playfair = `
     let regex = /\d+$/g;
     let match = ciphertext.match(regex);
     let numberlength = ""
+    let number = ""
       if (match) {
-        let number = match[0];
+        number = match[0];
+        console.log(number, ciphertext)
         numberlength = number.length;
       } else {
   console.log("Keine Zahl am Ende des Wortes gefunden.");
   }
+
   ciphertext = ciphertext.slice(0, -numberlength);
   ciphertext = ciphertext.replace(/\s/g, "");
-  let textLength = ciphertext.slice(-numberlength).length;
-  console.log("it works")
+  console.log("it works", numberlength, number)
 // errormessages für special char und numbers in key/ciphertext
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
@@ -338,19 +340,24 @@ let Playfair = `
     let finalText = plaintext;
 //Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
       // i dem for sueched mir use, ob es wort mit em Satz x endet und ned so lang isch wie de text wo verschlüsslet worde isch
-      if(finalText.length >= textLength) {
+      console.log("text" , finalText)
+      if(finalText.length > number) {
         //hier wird nach spezialfäll glueged wie zb "fixiert", da IXI da im nächschte else die X dete ussortiert werdet.
-        if (finalText.match(/IXI/g)) {
+        if (finalText.match(/\w*IXI|EXE\w*/g)) {
+          console.log("1")
           finalText = finalText.slice(0, -1)
         } 
-        else if (finalText.match(/(.)(X)\1/g, "1$1" && finalText.length === textLength)) {
-          console.log(finalText)
+        else if (finalText.match(/(.)(X)\1/g, "1$1")) {
+          console.log("2", finalText)
           finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
         }
-        else if(finalText.charAt(textLength) == "X") {
-          finalText = finalText.slice(0, -1)
-        }
-      }
+        if(finalText.length > number){
+            sum = finalText.length - number;
+            console.log(sum)
+            finalText = finalText.slice(0, -sum)
+          }
+        } 
+      
       document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
       document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;

@@ -57,7 +57,7 @@
 
     
       <h1>How does the Playfair cipher work?</h1>
-      The Playfair cipher does work by using a Keyword or Phrase as Key and a Textinput. Crypty uses <code>"ABCDEFGHIKLMNOPQRSTUVWXYZ"</code> to shift.
+      The Playfair cipher does work by using a Keyword as Key and a Word as plaintext. It could use sentences but the chance of a mistake in the encryption increases. Crypty uses <code>"ABCDEFGHIKLMNOPQRSTUVWXYZ"</code> to shift.
 <br />
 What this does mean is that if you have the "Key" and the "Plaintext" you can start by making a 5x5 table, in which we add our Key in the first row (if the key is longer than 5, it goes to the second line of the table). Each letter is for one field in the table and there are no duplicates allowed. After we inserted the key, we started adding the other letters (from the alphabet) that were missing. Only the letter "J" is excepted (because I = J in Playfair). Now we use the plaintext we want to encrypt. First, we split the plaintext into pairs of two letters. If there are double letters, we separate them with an X. Z.B. "Hello" would be "He lx lo". If the number of letters in the plaintext is odd, we have to add an X at the last position, because we need a even number of letters for the pairs. Then we have to use the rules to create the encrypted letter pairs from the plaintext.
 <br /><strong>Rule 1:</strong> If both letters from the pair are on the same row, the text shifts right. If one of the letters is at the right table border, we remove the letter from the right side and add it to the left side in the same row.
