@@ -155,7 +155,7 @@ button {
   background-color: white;
   border-radius: 10px;
   width: 80px;
-  height: 30px;
+  min-height: 30px;
 }
 input.key {
   background: none;
