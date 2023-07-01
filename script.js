@@ -44,7 +44,6 @@ function caesarEncode() {
   for (let i = 0; i < text.length; i++) {
     let caesarStringIndex = caesarString.indexOf(text.charAt(i));
     if (/\s/.test(text.charAt(i))) {
-      console.log("Current character is a space");
       res = res.concat(text.charAt(i));
     } else {
       let char = caesarStringIndex + key;
@@ -77,7 +76,6 @@ function caesarDecode() {
   for (let i = 0; i < text.length; i++) {
     let caesarStringIndex = caesarString.indexOf(text.charAt(i));
     if (/\s/.test(text.charAt(i))) {
-      console.log("Current character is a space");
       res = res.concat(text.charAt(i));
     } else {
       let char = caesarStringIndex - key;
@@ -160,7 +158,6 @@ function VigenèreEncode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(encryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -177,7 +174,6 @@ function VigenèreDecode() {
   let decryptedText = "";
   let keyIndex = 0;
   //errormessages für special chars & numbers
-  console.log(key);
   let resultKey = isNumber(key);
   if (!input || !key) {
     error("You need a Keyword/phrase and a Text to decode");
@@ -215,7 +211,6 @@ function VigenèreDecode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(decryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -270,6 +265,37 @@ function PlayfairEncode() {
     return;
   }
 
+    let grid = createGrid(key);
+    let pairs = createPairs(plaintext);
+    let ciphertext = "";
+    for (let i = 0; i < pairs.length; i++) {
+      let pair = pairs[i];
+      let encryptedPair = encryptPair(pair, grid);
+      ciphertext += encryptedPair;
+    }
+    document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+    document.body.classList.remove("error");
+    ciphertext += length
+    document.getElementById("Output").innerText = ciphertext;
+  }
+  
+  function PlayfairDecode() {
+    // Hier wird di Schlussendlichi FUnction Decode ufgruefe, welli de Key as createGrid & de ciphertext(verschlüsselte Text) as createPairs übergit
+    // denach wird über jedes Paar gloopt und decrypted ahand vo de gridtabelle mit em Key und zum Plaintext hinzugfüeged
+    // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
+    // han bim teschte bemerkt, dass wenn es Wort verschlüsselt wird, wo ungerade isch und mit X endet zu de Endig "EE", "WW" und "XX" wird. daher hani das ebenfalls noma umbaut um de fehler z umgah. 
+    let key = document.getElementById("PlayfairKey").value;
+    let ciphertext = document.getElementById("PlayfairInputDecode").value;
+    
+    // hier benutzed mir regex um d zahl hinter dem verschlüsselte Text uszlese und separat z speichere um d zahl im nechschte schritt vom text z trenne
+    let regex = /\d+$/g;
+    let match = ciphertext.match(regex);
+    let numberlength = ""
+      if (match) {
+        let number = match[0];
+        numberlength = number.length;
+      } else {
+
   let grid = createGrid(key);
   let pairs = createPairs(plaintext);
   let ciphertext = "";
@@ -305,7 +331,16 @@ function PlayfairDecode() {
   ciphertext = ciphertext.slice(0, -numberlength);
   ciphertext = ciphertext.replace(/\s/g, "");
   let textLength = ciphertext.slice(-numberlength).length;
-  console.log("it works");
+// errormessages für special char und numbers in key/ciphertext
+    let resultKey = isNumber(key);
+    if (!ciphertext || !key) {
+      error("You need a Keyword/phrase and a Text to decode");
+      return;
+    }
+    if (/[^a-zA-Z\s]/g.test(ciphertext)) {
+      error("Contains special characters or numbers, won't work.");
+      return;
+
   // errormessages für special char und numbers in key/ciphertext
   let resultKey = isNumber(key);
   if (!ciphertext || !key) {
@@ -391,6 +426,23 @@ function createPairs(text) {
     } else {
       pair += text.charAt(i + 1);
     }
+ 
+  
+    let finalText = plaintext;
+//Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
+      // i dem for sueched mir use, ob es wort mit em Satz x endet und ned so lang isch wie de text wo verschlüsslet worde isch
+      if(finalText.length >= textLength) {
+        //hier wird nach spezialfäll glueged wie zb "fixiert", da IXI da im nächschte else die X dete ussortiert werdet.
+        if (finalText.match(/IXI/g)) {
+          finalText = finalText.slice(0, -1)
+        } 
+        else if (finalText.match(/(.)(X)\1/g, "1$1" && finalText.length === textLength)) {
+          finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
+        }
+        else if(finalText.charAt(textLength) == "X") {
+          finalText = finalText.slice(0, -1)
+        }
+
     // füegt d pair id pairs i
     pairs.push(pair);
     i += 2;
