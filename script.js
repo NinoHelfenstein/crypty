@@ -166,7 +166,6 @@ let Playfair = `
     document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
     document.body.classList.remove("error");
     ciphertext += length
-    console.log(ciphertext)
     document.getElementById("Output").innerText = ciphertext;
   }
   
@@ -185,7 +184,6 @@ let Playfair = `
       if (match) {
         let number = match[0];
         numberlength = number.length;
-        console.log("Die Länge der Zahl am Ende des Wortes:", numberlength);
       } else {
   console.log("Keine Zahl am Ende des Wortes gefunden.");
   }
@@ -223,23 +221,18 @@ let Playfair = `
   
     let finalText = plaintext;
 //Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
-      console.log("1", finalText)
       // i dem for sueched mir use, ob es wort mit em Satz x endet und ned so lang isch wie de text wo verschlüsslet worde isch
       if(finalText.length >= textLength) {
-        
         //hier wird nach spezialfäll glueged wie zb "fixiert", da IXI da im nächschte else die X dete ussortiert werdet.
         if (finalText.match(/IXI/g)) {
           finalText = finalText.slice(0, -1)
-          console.log("3")
         } 
         else if (finalText.match(/(.)(X)\1/g, "1$1" && finalText.length === textLength)) {
           console.log(finalText)
           finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
-          console.log("4")
         }
         else if(finalText.charAt(textLength) == "X") {
           finalText = finalText.slice(0, -1)
-          console.log("2")
         }
       }
       document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
