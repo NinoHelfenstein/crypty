@@ -177,6 +177,7 @@ let Playfair = `
     // han bim teschte bemerkt, dass wenn es Wort verschlüsselt wird, wo ungerade isch und mit X endet zu de Endig "EE", "WW" und "XX" wird. daher hani das ebenfalls noma umbaut um de fehler z umgah. 
     let key = document.getElementById("PlayfairKey").value;
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
+    
     // hier benutzed mir regex um d zahl hinter dem verschlüsselte Text uszlese und separat z speichere um d zahl im nechschte schritt vom text z trenne
     let regex = /\d+$/g;
     let match = ciphertext.match(regex);
@@ -189,8 +190,9 @@ let Playfair = `
   console.log("Keine Zahl am Ende des Wortes gefunden.");
   }
   ciphertext = ciphertext.slice(0, -numberlength);
-
-  let textLength = document.getElementById("PlayfairInputDecode").value.slice(-numberlength);
+  ciphertext = ciphertext.replace(/\s/g, "");
+  let textLength = ciphertext.slice(-numberlength).length;
+  console.log("it works")
 // errormessages für special char und numbers in key/ciphertext
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
@@ -219,42 +221,30 @@ let Playfair = `
       plaintext += decryptedPair;
     }
   
-    let cleanedText = plaintext;
+    let finalText = plaintext;
 //Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
-    if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE")) || (cleanedText.endsWith("FF")) || (cleanedText.endsWith("SS"))) {
-      finalText = cleanedText.slice(0, -2);
-      console.log(finalText.charAt(textLength))
+      console.log("1", finalText)
       // i dem for sueched mir use, ob es wort mit em Satz x endet und ned so lang isch wie de text wo verschlüsslet worde isch
-      for(z = 0;finalText.length >= textLength; z++) {
-        if (finalText.endsWith("X")) {
-          finalText = finalText.slice(0, -1)
-        }
+      if(finalText.length >= textLength) {
+        
         //hier wird nach spezialfäll glueged wie zb "fixiert", da IXI da im nächschte else die X dete ussortiert werdet.
-        else if (finalText.match(/\b\w*IXI\*w\b/g)) {
+        if (finalText.match(/IXI/g)) {
           finalText = finalText.slice(0, -1)
+          console.log("3")
         } 
-        else {
-          finalText = finalText.replace(/(.)(X)\1/g, "$1$1");
+        else if (finalText.match(/(.)(X)\1/g, "1$1" && finalText.length === textLength)) {
+          console.log(finalText)
+          finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
+          console.log("4")
         }
-      }
-      document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
-      document.body.classList.remove("error");
-      document.getElementById("Output").innerText = finalText;
-    }
-    else {
-      finalText = cleanedText;
-      for(z = 0;finalText.length > textLength; z++) {
-        if(finalText.charAt(textLength) == "X" || finalText.charAt(textLength) == "x") {
+        else if(finalText.charAt(textLength) == "X") {
           finalText = finalText.slice(0, -1)
-        }
-        else {
-          finalText = finalText;
+          console.log("2")
         }
       }
       document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
       document.body.classList.remove("error");
       document.getElementById("Output").innerText = finalText;
-    }
   }
 
   function createGrid(key) {
