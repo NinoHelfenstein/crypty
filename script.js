@@ -481,55 +481,55 @@ let Playfair = `
   }
   
 
-function chooseMethod() {
-  // Z'erst wird d'value vom select ide letiable "value" gspeichered, s'glich macht mer no mit em content wrapper.
-  // Nacher wird gluegt was de user usgwählt hed und denne wird demm entsprechend das glade, indem's de innerHTML zerst glöscht wird und
-  // nacher wieder öpis ine chunt.
-  let value = document.getElementById("method").value;
-  contentWrapper = document.getElementById("contentWrapper");
-  contentWrapper.innerHTML = "";
-  switch (value) {
-    case "caesar":
-      contentWrapper.innerHTML = caesar;
-      break;
-    case "vigenère":
-      contentWrapper.innerHTML = vigenère;
-      break;
-    case "Playfair":
-      contentWrapper.innerHTML = Playfair;
-      break;
+  function chooseMethod() {
+    // Z'erst wird d'value vom select ide letiable "value" gspeichered, s'glich macht mer no mit em content wrapper.
+    // Nacher wird gluegt was de user usgwählt hed und denne wird demm entsprechend das glade, indem's de innerHTML zerst glöscht wird und
+    // nacher wieder öpis ine chunt.
+    let value = document.getElementById("method").value;
+    contentWrapper = document.getElementById("contentWrapper");
+    contentWrapper.innerHTML = "";
+    switch (value) {
+      case "caesar":
+        contentWrapper.innerHTML = caesar;
+        break;
+      case "vigenère":
+        contentWrapper.innerHTML = vigenère;
+        break;
+      case "Playfair":
+        contentWrapper.innerHTML = Playfair;
+        break;
+    }
   }
-}
-
-function error(message) {
-  document.body.classList.add("error");
-  document.getElementById("logo").src = "src/cryptyLogoTransparentError.png";
-  document.querySelector(".Output").innerHTML = message;
-  // setTimeout(() => {
-  //   document.body.classList.remove("error");
-  //   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
-  // }, 1000);
-}
-
-function copyOutput() {
-  const output = document.getElementById("Output");
-  navigator.clipboard.writeText(output.innerHTML);
-}
-
-
-function externalOutput() {
-  const output = document.getElementById("Output");
-  let newWin = open("url", "windowName");
-  newWin.document.write(output.innerHTML);
-}
-
-
-// TO WORK OUT THE MODULO BUG
-// web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
-https: Number.prototype.mod = function (n) {
-  return ((this % n) + n) % n;
-};
-
-function isNumber(variable) {
-  return !isNaN(variable);
-}
+  
+  function error(message) {
+    document.body.classList.add("error");
+    document.getElementById("logo").src = "src/cryptyLogoTransparentError.png";
+    document.querySelector(".Output").innerHTML = message;
+    // setTimeout(() => {
+    //   document.body.classList.remove("error");
+    //   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
+    // }, 1000);
+  }
+  
+  function copyOutput() {
+    const output = document.getElementById("Output");
+    navigator.clipboard.writeText(output.innerHTML);
+  }
+  
+  
+  function externalOutput() {
+    const output = document.getElementById("Output");
+    let newWin = open("url", "windowName");
+    newWin.document.write(output.innerHTML);
+  }
+  
+  
+  // TO WORK OUT THE MODULO BUG
+  // web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
+  https: Number.prototype.mod = function (n) {
+    return ((this % n) + n) % n;
+  };
+  
+  function isNumber(variable) {
+    return !isNaN(variable);
+  }
