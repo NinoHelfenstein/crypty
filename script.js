@@ -39,10 +39,6 @@ function caesarEncode() {
     error("Key isn't a natural number");
     return;
   }
-  if (text % 1 !== 0 || text < 0) {
-    error("Key isn't a natural number");
-    return;
-  }
   let res = "";
   for (let i = 0; i < text.length; i++) {
     let caesarStringIndex = caesarString.indexOf(text.charAt(i));
