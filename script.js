@@ -2,12 +2,12 @@ let caesar = `
 <p class="info">You can only use normal characters and numbers. Space will remain a space. The key can only be a natural number</p>
 <input type="number" name="caesarKey" id="caesarKey" class="key"  placeholder="key" min=0>
     <div class="caesarEncodeWrapper">
-      <textarea id="caesarInputEncode" rows="4" cols="50" placeholder="Text to encode"></textarea>
+      <textarea id="caesarInputEncode" rows="4" placeholder="Text to encode"></textarea>
       <button type="button" onclick="caesarEncode()">Encode</button>
     </div>
     <br>
     <div class="caesarDecodeWrapper">
-      <textarea id="caesarInputDecode" rows="4" cols="50" placeholder="Text to decode"></textarea>
+      <textarea id="caesarInputDecode" rows="4" placeholder="Text to decode"></textarea>
       <button type="button" onclick="caesarDecode()">Decode</button>
     </div>
     <div class="OutputWrapper" onclick="copyOutput()">
@@ -92,12 +92,12 @@ function caesarDecode() {
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
   <div class="caesarEncodeWrapper">
-    <textarea id="VigenèreInputEncode" rows="4" cols="50" placeholder="Text to encode"></textarea>
+    <textarea id="VigenèreInputEncode" rows="4" placeholder="Text to encode"></textarea>
     <button type="button" onclick="VigenèreEncode()">Encode</button>
   </div>
   <br>
   <div class="caesarDecodeWrapper">
-    <textarea id="VigenèreInputDecode" rows="4" cols="50" placeholder="Text to decode"></textarea>
+    <textarea id="VigenèreInputDecode" rows="4" placeholder="Text to decode"></textarea>
     <button type="button" onclick="VigenèreDecode()">Decode</button>
   </div>
   <div class="OutputWrapper" onclick="copyOutput()">

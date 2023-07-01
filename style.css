@@ -58,8 +58,8 @@ select {
 
 .OutputWrapper {
   background-color: var(--secondary-color);
-  width: 80%;
-  padding: 40px;
+  width: 70vw;
+  padding: 30px;
   margin: 10px;
   position: relative;
   border-radius: 5px;
@@ -110,33 +110,34 @@ nav {
   --primary-color: #fd1301;
 }
 
-
 code {
-    background-color: var(--secondary-color);
-    border-radius: 3px;
-    font-family: courier, monospace;
-    padding: 0 3px;
+  background-color: var(--secondary-color);
+  border-radius: 3px;
+  font-family: courier, monospace;
+  padding: 0 3px;
 }
 
-main{
+main {
   padding: 20px;
 }
-.caesarDecodeWrapper, .caesarEncodeWrapper{
+.caesarDecodeWrapper,
+.caesarEncodeWrapper {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-textarea{
+textarea {
   padding: 5px;
   color: var(--black);
   border: none;
   border-radius: 10px;
+  width: 400px;
 }
-textarea::placeholder{
+textarea::placeholder {
   color: var(--black);
   opacity: 100%;
 }
-button{
+button {
   background: none;
   border: none;
   background-color: white;
@@ -144,19 +145,59 @@ button{
   width: 80px;
   height: 30px;
 }
-input.key{
+input.key {
   background: none;
-  border: none;
   background-color: white;
   border-radius: 10px;
   width: 40px;
   height: 40px;
 }
-.key::placeholder{
+::placeholder {
   color: var(--black);
 }
 
-pre{
+pre {
   padding: 0;
   margin: 0;
+  overflow-x: scroll;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+}
+
+input[type="text"] {
+  background: none;
+  background-color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+}
+
+input,
+textarea,
+button {
+  border: 1px solid gray;
+}
+
+@media only screen and (max-width: 1200px) {
+  textarea {
+    width: 300px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  textarea {
+    width: 200px;
+  }
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
