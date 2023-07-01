@@ -3,6 +3,7 @@
   --tertiary-color: #6e5f15ff;
   --secondary-color: #dbbe2aff;
   --primary-color: #fad92fff;
+  scrollbar-color: grey transparent;
 }
 
 * {
@@ -154,7 +155,7 @@ button {
   background-color: white;
   border-radius: 10px;
   width: 80px;
-  height: 30px;
+  min-height: 30px;
 }
 input.key {
   background: none;
@@ -168,7 +169,6 @@ input.key {
 }
 
 pre {
-  padding: 0;
   margin: 0;
   overflow-x: scroll;
   width: 100%;
@@ -202,3 +202,17 @@ button {
   }
 }
 
+::-webkit-scrollbar {
+    height: 5px;
+    background: none;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: gray;
+    -webkit-border-radius: 2px;
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
