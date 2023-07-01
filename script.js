@@ -110,7 +110,9 @@ let option2 = `
   `;
 
 let Playfair = `
-    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br> X wird zum Schluss noch herausgesucht und entfernt<br>Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden</p>
+    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode & Schlüssel der ebenfalls ein Wort ist.<br>
+    Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden<br>
+    X wird zum Schluss noch herausgesucht und entfernt</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
     <div class="caesarEncodeWrapper">
       <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
@@ -133,6 +135,7 @@ let Playfair = `
     // zum Schluss hani na welle d X, verursacht dur doppelti Buchstabe oder ungeradi Satzlängene z löschen ums besser chöne lese und gibe das ganze im Output wieder us
     let key = document.getElementById("PlayfairKey").value;
     let plaintext = document.getElementById("PlayfairInputEncode").value;
+    //errormessages für special chars und numbers in plaintext/key
     let resultKey = isNumber(key);
     if (!plaintext || !key) {
       error("You need a Keyword/phrase and a Text to decode");
@@ -172,7 +175,7 @@ let Playfair = `
     let key = document.getElementById("PlayfairKey").value;
     let ciphertext = document.getElementById("PlayfairInputDecode").value;
     console.log(ciphertext)
-
+// errormessages für special char und numbers in key/ciphertext
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
       error("You need a Keyword/phrase and a Text to decode");
@@ -201,7 +204,7 @@ let Playfair = `
     }
   
     let cleanedText = plaintext.replace(/(.)(X)\1/g, "$1$1");
-//Hier entferne mir na d character wo chented für fehler sorge wie z.B. WW usw
+//Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
     if ((cleanedText.endsWith("WW")) || (cleanedText.endsWith("VV")) || (cleanedText.endsWith("EE")) || (cleanedText.endsWith("FF")) || (cleanedText.endsWith("SS"))) {
       finalText = cleanedText.slice(0, -2);
       document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
@@ -221,11 +224,11 @@ let Playfair = `
     // Hier wird es Gitter(grid 5x5) erstellt, und de Key hinzugfüegt. dabi wird de Key vo obe links her startend is raschter Igfüegt. Achtung isch en Buchstabe bereits einmal itreit, chunt er im Raster keis zweits mal vor. usserdem wird "J" im raster mit "I" ersetzt(daher 5x5 = 25)
     let grid = [];
     let alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-    
+    // hier werded d J mit de I tusched und glueged das nur Buechstabe vo A-Z existiered
     key = key.toUpperCase().replace(/J/g, "I");
     key += alphabet;
     key = key.replace(/[^A-Z]/g, "");
-    
+    // hier werded d buechstabe is grip glade um d 5X5 tabelle z bilde
     for (let i = 0; i < key.length; i++) {
       let letter = key.charAt(i);
       if (grid.indexOf(letter) === -1) {
@@ -242,18 +245,18 @@ let Playfair = `
     
     let pairs = [];
     let i = 0;
-    
+  
     while (i < text.length) {
       let pair = "";
       pair += text.charAt(i);
-      
+      // wenn text zu churz isch oder doppelti vorchemed, wird es x aghängt bzw dezwisched igfüegt.
       if (i === text.length - 1 || text.charAt(i) === text.charAt(i + 1)) {
         pair += "X";
         i--;
       } else {
         pair += text.charAt(i + 1);
-      }
-      
+      } 
+      // füegt d pair id pairs i
       pairs.push(pair);
       i += 2;
     }
@@ -261,8 +264,8 @@ let Playfair = `
   }
   
   function encryptPair(pair, grid) {
-    // i dere funktion werdet di bereits ufgeteilte Paare vom Plaintexts is Grid(5x5) igfüegt.
-    // Dazu träged mir euse Key von Obe Links startend i und gend nach rechts. isch ein Buchstabe im grid so chunt er det keis zweits mal vor.
+    // i dere funktion werdet di bereits ufgeteilte Paare vom Plaintexts is Grid(5x5) aglueged.
+    // defür lesed mir euse Key von Obe Links startend  und gend nach rechts im grid(tabelle). isch ein Buchstabe im grid so chunt er det keis zweits mal vor.
     // als nächschtes nehmed mir die ufgeteilte Päärli und sueched jede Buechstabe devo ufem Grid. dazu gits aber einig i regle wo münd beachtet werde.
     // Rule1: Sind die Beide Plaintexschtbuechstabe i deselbe Zile, werdet d Buechstabe mit em folgende Buechstabe(rechts) ersetzt. Befindet sich de Buechstabe am üssersertschte Rand(rechts) und es folgt kein andere uf die recht site, so wird de Buechstabe uf di link site ganz links vo de gliche zeile gshiftet
     // Rule2: ergit sich dur d verwendig vo de Buechstabe es Rechteck(z.B. 3x4) so werdet d Buechstabe dur Buechstabe vo de andere ecke vo de gliche Zile ersetzt
@@ -304,7 +307,7 @@ let Playfair = `
   }
   
   function decryptPair(pair, grid) {
-    // gegeteil vo encryptPair, nimmt ciphertext, splitted en uf i Pairs und arbeited sich logisch betrachtet rückwerts dur d verschlüsselig
+    // gegeteil vo encryptPair, nimmt ciphertext, wo sch ufsplitted isch i Pairs und arbeited sich logisch betrachtet rückwerts dur d verschlüsselig
     let char1 = pair.charAt(0);
     let char2 = pair.charAt(1);
     let row1, col1, row2, col2;
@@ -340,7 +343,7 @@ let Playfair = `
     decryptedPair += grid[row2 * 5 + col2];
     return decryptedPair;
   }
-
+// hier wird d sicherheit überprüeft. falls d de text e zahl isch wird si da gfunde. und en error displayed
   function isNumber(variable) {
     return !isNaN(variable);
   }
