@@ -162,7 +162,6 @@ function VigenèreEncode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(encryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -179,7 +178,6 @@ function VigenèreDecode() {
   let decryptedText = "";
   let keyIndex = 0;
   //errormessages für special chars & numbers
-  console.log(key);
   let resultKey = isNumber(key);
   if (!input || !key) {
     error("You need a Keyword/phrase and a Text to decode");
@@ -217,7 +215,6 @@ function VigenèreDecode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(decryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -302,10 +299,7 @@ let Playfair = `
         number = match[0];
         console.log(number, ciphertext)
         numberlength = number.length;
-      } else {
-  console.log("Keine Zahl am Ende des Wortes gefunden.");
-  }
-
+      }
   ciphertext = ciphertext.slice(0, -numberlength);
   ciphertext = ciphertext.replace(/\s/g, "");
 // errormessages für special char und numbers in key/ciphertext
