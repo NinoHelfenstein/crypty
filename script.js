@@ -93,6 +93,7 @@ function caesarDecode() {
 let vigenère = `
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
+  <button type="button" onclick="generateKey('vigenère')">Generate a Key</button>
   <div class="caesarEncodeWrapper">
     <textarea id="VigenèreInputEncode" rows="4" placeholder="Text to encode"></textarea>
     <button type="button" onclick="VigenèreEncode()">Encode</button>
@@ -226,6 +227,7 @@ let Playfair = `
     Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden<br>
     X wird zum Schluss noch herausgesucht und entfernt</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
+    <button type="button" onclick="generateKey('playFair')">Generate a Key</button>
     <div class="caesarEncodeWrapper">
       <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
       <button type="button" onclick="PlayfairEncode()">Encode</button>
@@ -537,6 +539,12 @@ function generateKey(method) {
     case "caesar":
       document.getElementById("caesarKey").value = getRandomInt(10000);
       break;
+    case "vigenère":
+      document.getElementById("VigenèreKey").value = randomString(5);
+      break
+    case "playFair":
+      document.getElementById("PlayfairKey").value = randomString(5);
+      break
     default:
       return;
   }
@@ -544,4 +552,17 @@ function generateKey(method) {
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
+}
+
+function randomString(length) {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
 }
