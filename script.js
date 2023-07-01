@@ -308,7 +308,6 @@ let Playfair = `
 
   ciphertext = ciphertext.slice(0, -numberlength);
   ciphertext = ciphertext.replace(/\s/g, "");
-  console.log("it works", numberlength, number)
 // errormessages für special char und numbers in key/ciphertext
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
@@ -340,20 +339,16 @@ let Playfair = `
     let finalText = plaintext;
 //Hier entferned mir na d character wo chented für fehler sorge wie z.B. WW >VsV
       // i dem for sueched mir use, ob es wort mit em Satz x endet und ned so lang isch wie de text wo verschlüsslet worde isch
-      console.log("text" , finalText)
       if(finalText.length > number) {
         //hier wird nach spezialfäll glueged wie zb "fixiert", da IXI da im nächschte else die X dete ussortiert werdet.
         if (finalText.match(/\w*IXI|EXE\w*/g)) {
-          console.log("1")
           finalText = finalText.slice(0, -1)
         } 
         else if (finalText.match(/(.)(X)\1/g, "1$1")) {
-          console.log("2", finalText)
           finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
         }
         if(finalText.length > number){
             sum = finalText.length - number;
-            console.log(sum)
             finalText = finalText.slice(0, -sum)
           }
         } 
