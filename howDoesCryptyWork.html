@@ -57,22 +57,16 @@
 
     
       <h1>How does the Playfair cipher work?</h1>
-      The Playfair cipher does work by using a Keyword or Phrase as Key and a Textinput. Crypty
-      uses
-      <code
-        >"ABCDEFGHIKLMNOPQRSTUVWXYZ"</code
-      >
-      to shift.
-      <br />
-      What this does mean is if you have the "Key" and the "plaintext" you can start by making a 5x5 table, in which we add our Key in the first row(if the key is longer than 5, it goes to the second line of the table). Each letter is for one field in the table and there are no duplicates allowed. after we inserted the key, we start adding the other letters(from the alphabet) that are missing. Only the letter "J" is excepted (because I = J in Playfair). now we use the plaintext we want to encrypt.
-      first we split the plaintext in pairs of 2 letters. if there are doubleletters we separate them  with an X. Z.B. "Hello" would be "He lx lo". If the number of letters in the plaintext is odd, we have to add an X at the last position, because we need a even number of letters for the pairs. then we have to use the rules to create the encrypted letterpairs from the plaintext.
-      <br><strong>Rule 1:</strong> If both letters from the pair are on the same row, the text shifts right. if one of the letters is at the right table border, we remove the letter from the right side and add it on the left side in the same row.
-      <br><strong>Rule 2:</strong> If both letters from the pair create a square(always 2 sides have to be even) the letters move inside the square from the side it was to the other side on the same row.
-      <br><strong>Rule 3:</strong> If both letters from the pair are on the same column, the letter shift down. if one letter reached the bottom it would shift to the top of the same column<br>
-      with the Key "World" our Plaintext <code>Hello</code> would encrypt to <code>KBRYDR</code>, which decrypts to <code>He lx lo</code>. Or a even worse example if we use Flexbox as plaintext because encrypted it woul look like <code>EDCYHBYY</code> which gets decrypted to <code>Fl ex bo xV SV</code> without my small fixes in Javascript code. with my fixes in javascript it displays <code>Flexbox</code> as normal word.<br />
-      It is important to understand that the program only uses strings with the Letters A-Z(except J), that means that everytime we use a J in plaintext, it will automatically decode to I since J isn't allowed.
-      Because the Playfair Method has some special Problems, i mad an extra Code which will try to remove the Xs from doubleletters and endings. While i tried the Playfair cipher, i also saw that there are some similar Problems with "E", "W" & "V". so i added extra code to remove them too.
-      Also i added errorMessages for Problems with numbers and special chars, so there shouldn't be many problems.
+      The Playfair cipher does work by using a Keyword or Phrase as Key and a Textinput. Crypty uses <code>"ABCDEFGHIKLMNOPQRSTUVWXYZ"</code> to shift.
+<br />
+What this does mean is that if you have the "Key" and the "Plaintext" you can start by making a 5x5 table, in which we add our Key in the first row (if the key is longer than 5, it goes to the second line of the table). Each letter is for one field in the table and there are no duplicates allowed. After we inserted the key, we started adding the other letters (from the alphabet) that were missing. Only the letter "J" is excepted (because I = J in Playfair). Now we use the plaintext we want to encrypt. First, we split the plaintext into pairs of two letters. If there are double letters, we separate them with an X. Z.B. "Hello" would be "He lx lo". If the number of letters in the plaintext is odd, we have to add an X at the last position, because we need a even number of letters for the pairs. Then we have to use the rules to create the encrypted letter pairs from the plaintext.
+<br /><strong>Rule 1:</strong> If both letters from the pair are on the same row, the text shifts right. if one of the letters is at the right table border, we remove the letter from the right side and add it to the left side in the same row.
+<br /><strong>Rule 2:</strong> If both letters from the pair create a square(always 2 sides have to be even) the letters move inside the square from the side it was to the other side on the same row.
+<br /><strong>Rule 3:</strong> If both letters from the pair are on the same column, the letter shift down. if one letter reached the bottom it would shift to the top of the same column.
+<br />
+With the Key "World" our Plaintext <code>Hello</code> would encrypt to <code>KBRYDR</code>, which decrypts to <code>He lx lo</code>. Or an even worse example: if we use Flexbox as plaintext because it is encrypted, it would look like EDCYHBYY which gets decrypted to <code>Fl ex bo xV SV</code> without my small fixes in Javascript code. With my fixes in Javascript, it displays <code>Flexbox</code> as a normal word.
+<br />
+It is important to understand that the program only uses strings with the Letters A-Z (except J), which means that every time we use a J in plaintext, it will automatically decode to I since J isn't allowed. Because the Playfair Method has some special Problems, Crypty uses some extra Code that will try to remove the Xs from double letters and endings. While testing the Playfair cipher, some similar Problems occurred with "E", "W" & "V". So Crypty uses some extra code to remove them too. If Crypty notices Problems with numbers and special characters, an error message will appear, so there shouldn't be any problems.
     </main>
     <h2>If you want to see the source code you can checkout this repository:
         <a href="https://github.com/NinoHelfenstein/crypty.git">https://github.com/NinoHelfenstein/crypty.git</a>
