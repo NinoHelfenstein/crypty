@@ -119,6 +119,7 @@ code {
 
 main {
   padding: 20px;
+  word-wrap: break-word;
 }
 .caesarDecodeWrapper,
 .caesarEncodeWrapper {
