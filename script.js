@@ -43,7 +43,6 @@ function caesarEncode() {
   for (let i = 0; i < text.length; i++) {
     let caesarStringIndex = caesarString.indexOf(text.charAt(i));
     if (/\s/.test(text.charAt(i))) {
-      console.log("Current character is a space");
       res = res.concat(text.charAt(i));
     } else {
       let char = caesarStringIndex + key;
@@ -76,7 +75,6 @@ function caesarDecode() {
   for (let i = 0; i < text.length; i++) {
     let caesarStringIndex = caesarString.indexOf(text.charAt(i));
     if (/\s/.test(text.charAt(i))) {
-      console.log("Current character is a space");
       res = res.concat(text.charAt(i));
     } else {
       let char = caesarStringIndex - key;
@@ -158,7 +156,6 @@ function VigenèreEncode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(encryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputEecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -175,7 +172,6 @@ function VigenèreDecode() {
   let decryptedText = "";
   let keyIndex = 0;
   //errormessages für special chars & numbers
-  console.log(key);
   let resultKey = isNumber(key);
   if (!input || !key) {
     error("You need a Keyword/phrase and a Text to decode");
@@ -213,7 +209,6 @@ function VigenèreDecode() {
     }
   }
   // Hier wird noma überprüeft, ob encryptedText existiert bzw i de Console usgäh wird
-  console.log(decryptedText);
   // zuletscht wird de encryptedText via DOM is Usgabefeld VigenèreInputDecode übergäh
   document.getElementById("logo").src = "src/cryptyLogoTransparent.png";
   document.body.classList.remove("error");
@@ -297,12 +292,10 @@ let Playfair = `
         let number = match[0];
         numberlength = number.length;
       } else {
-  console.log("Keine Zahl am Ende des Wortes gefunden.");
   }
   ciphertext = ciphertext.slice(0, -numberlength);
   ciphertext = ciphertext.replace(/\s/g, "");
   let textLength = ciphertext.slice(-numberlength).length;
-  console.log("it works")
 // errormessages für special char und numbers in key/ciphertext
     let resultKey = isNumber(key);
     if (!ciphertext || !key) {
@@ -340,7 +333,6 @@ let Playfair = `
           finalText = finalText.slice(0, -1)
         } 
         else if (finalText.match(/(.)(X)\1/g, "1$1" && finalText.length === textLength)) {
-          console.log(finalText)
           finalText = finalText.replace(/(.)(X)\1/g, "$1$1")
         }
         else if(finalText.charAt(textLength) == "X") {
