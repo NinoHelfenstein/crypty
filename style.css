@@ -74,6 +74,16 @@ select {
   cursor: pointer;
 }
 
+.openExternal {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  opacity: 50%;
+}
+
 footer {
   width: 100%;
   text-align: center;
@@ -192,13 +202,3 @@ button {
   }
 }
 
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-}

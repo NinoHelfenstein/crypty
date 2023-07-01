@@ -10,9 +10,10 @@ let caesar = `
       <textarea id="caesarInputDecode" rows="4" placeholder="Text to decode"></textarea>
       <button type="button" onclick="caesarDecode()">Decode</button>
     </div>
-    <div class="OutputWrapper" onclick="copyOutput()">
+    <div class="OutputWrapper" >
       <pre id="Output" class="Output"></pre>
-      <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
+      <img class="copyOutput" src="src/copy.png" alt"copyText-Icon" onclick="copyOutput()">
+      <img class="openExternal" src="src/external.png" alt="Open Output external" onclick="externalOutput()">
     </div>
   `;
 
@@ -56,7 +57,7 @@ function caesarEncode() {
 }
 
 function caesarDecode() {
-  // Da passiert s'gliche wie bim Encode eifach das de Key minus grechned wird und ned plus. 
+  // Da passiert s'gliche wie bim Encode eifach das de Key minus grechned wird und ned plus.
   let text = document.getElementById("caesarInputDecode").value;
   let key = parseFloat(document.getElementById("caesarKey").value);
   if (!text || !key) {
@@ -88,7 +89,7 @@ function caesarDecode() {
   document.getElementById("Output").innerHTML = res;
 }
 
-  let vigenère = `
+let vigenère = `
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
   <div class="caesarEncodeWrapper">
@@ -100,49 +101,54 @@ function caesarDecode() {
     <textarea id="VigenèreInputDecode" rows="4" placeholder="Text to decode"></textarea>
     <button type="button" onclick="VigenèreDecode()">Decode</button>
   </div>
-  <div class="OutputWrapper" onclick="copyOutput()">
+  <div class="OutputWrapper" >
   <pre id="Output" class="Output"></pre>
-  <img class="copyOutput" src="src/copy.png" alt"copyText-Icon">
+  <img class="copyOutput" src="src/copy.png" alt"copyText-Icon" onclick="copyOutput()">
+  <img class="openExternal" src="src/external.png" alt="Open Output external" onclick="externalOutput()">
 </div>
 `;
 
 function VigenèreEncode() {
   //I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
-  let input = document.getElementById("VigenèreInputEncode").value.toUpperCase();
+  let input = document
+    .getElementById("VigenèreInputEncode")
+    .value.toUpperCase();
   let key = document.getElementById("VigenèreKey").value.toUpperCase();
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
-  let encryptedText = '';
+  let encryptedText = "";
   let keyIndex = 0;
 
   let resultKey = isNumber(key);
-    if (!input || !key) {
-      error("You need a Keyword/phrase and a Text to decode");
-      return;
-    }
-    if (/[^a-zA-Z\s]/g.test(input)) {
-      error("Contains special characters or numbers, won't work.");
-      return;
-    }
-    if (/[^a-zA-Z\s]/g.test(key)) {
-      error("Contains special characters or numbers, won't work.");
-      return;
-    }
-    if (resultKey == true) {
-      error("Key needs to be a Word/Phrase");
-      return;
-    }
+  if (!input || !key) {
+    error("You need a Keyword/phrase and a Text to decode");
+    return;
+  }
+  if (/[^a-zA-Z\s]/g.test(input)) {
+    error("Contains special characters or numbers, won't work.");
+    return;
+  }
+  if (/[^a-zA-Z\s]/g.test(key)) {
+    error("Contains special characters or numbers, won't work.");
+    return;
+  }
+  if (resultKey == true) {
+    error("Key needs to be a Word/Phrase");
+    return;
+  }
 
   // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
     let charLetter = input.charAt(i);
-    
+
     // ezt wird überprüeft, ob de Zeichecode im Bereich vo A = 65 und Z = 90 liegt.
     if (charCode >= 65 && charCode <= 90) {
       // stimmt das sowit, wird denach hier de ensprechendi Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
       // denach wird de Buechstabe verschlüsselt und zum EncryptedText hinzugfüeged
-      let encryptedChar = String.fromCharCode(((charCode - 65 + keyChar) % 26) + 65);
+      let encryptedChar = String.fromCharCode(
+        ((charCode - 65 + keyChar) % 26) + 65
+      );
       encryptedText += encryptedChar;
       // und zu gueter Letscht wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
       keyIndex++;
@@ -159,34 +165,34 @@ function VigenèreEncode() {
   document.getElementById("Output").innerHTML = encryptedText;
 }
 
-
-
 function VigenèreDecode() {
   // I dere Funktion übergebed mir de Igabetext und de Schlüssel via DOM ad Variable und stelled alles uf Grossbuechstabe um.
-  let input = document.getElementById("VigenèreInputDecode").value.toUpperCase();
+  let input = document
+    .getElementById("VigenèreInputDecode")
+    .value.toUpperCase();
   let key = document.getElementById("VigenèreKey").value.toUpperCase();
   // Ezt werdet die Variable für de verschlüsselti Texscht und de Schlüsselindex initalisiert
-  let decryptedText = '';
+  let decryptedText = "";
   let keyIndex = 0;
   //errormessages für special chars & numbers
-  console.log(key)
+  console.log(key);
   let resultKey = isNumber(key);
-    if (!input || !key) {
-      error("You need a Keyword/phrase and a Text to decode");
-      return;
-    }
-    if (/[^a-zA-Z\s]/g.test(input)) {
-      error("Contains special characters or numbers, won't work.");
-      return;
-    }
-    if (/[^a-zA-Z\s]/g.test(key)) {
-      error("Contains special characters or numbers, won't work.");
-      return;
-    }
-    if (resultKey == true) {
-      error("Key needs to be a Word/Phrase");
-      return;
-    }
+  if (!input || !key) {
+    error("You need a Keyword/phrase and a Text to decode");
+    return;
+  }
+  if (/[^a-zA-Z\s]/g.test(input)) {
+    error("Contains special characters or numbers, won't work.");
+    return;
+  }
+  if (/[^a-zA-Z\s]/g.test(key)) {
+    error("Contains special characters or numbers, won't work.");
+    return;
+  }
+  if (resultKey == true) {
+    error("Key needs to be a Word/Phrase");
+    return;
+  }
   // denach wird über jede Buechstabe vom Igabetext gloopt(Schleife)
   for (let i = 0; i < input.length; i++) {
     let charCode = input.charCodeAt(i);
@@ -195,7 +201,9 @@ function VigenèreDecode() {
       // stimmt das sowit, wird denach hier de ensprechende Zeichecode vom Schlüsselbuechstabe ermittelt
       let keyChar = key.charCodeAt(keyIndex % key.length) - 65;
       // denach wird de Buechstabe entschlüsselt und zum encryptedText hinzugfüeged
-      let decryptedChar = String.fromCharCode(((charCode - 65 - keyChar + 26) % 26) + 65);
+      let decryptedChar = String.fromCharCode(
+        ((charCode - 65 - keyChar + 26) % 26) + 65
+      );
       decryptedText += decryptedChar;
       // und ezt wird im Loop de KeyIndex erhöht, demit de nechschti Buechstabe chan nach em gliche verfahre verschlüsselt werde
       keyIndex++;
@@ -211,7 +219,6 @@ function VigenèreDecode() {
   document.body.classList.remove("error");
   document.getElementById("Output").innerHTML = decryptedText;
 }
-
 
 let option3 = `
     <p class="info">Info Text</p>
@@ -265,6 +272,11 @@ function copyOutput() {
   navigator.clipboard.writeText(output.innerHTML);
 }
 
+function externalOutput() {
+  const output = document.getElementById("Output");
+  let newWin = open("url", "windowName");
+  newWin.document.write(output.innerHTML);
+}
 
 // TO WORK OUT THE MODULO BUG
 // web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
