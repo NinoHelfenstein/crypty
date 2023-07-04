@@ -1,6 +1,7 @@
 let caesar = `
 <p class="info">You can only use normal characters and numbers. Space will remain a space. The key can only be a natural number</p>
 <input type="number" name="caesarKey" id="caesarKey" class="key"  placeholder="key" min=0>
+<button type="button" onclick="generateKey('caesar')">Generate a Key</button>
     <div class="caesarEncodeWrapper">
       <textarea id="caesarInputEncode" rows="4" placeholder="Text to encode"></textarea>
       <button type="button" onclick="caesarEncode()">Encode</button>
@@ -92,6 +93,7 @@ function caesarDecode() {
 let vigenère = `
   <p class="info">Vigenère-Verschlüsselung<br>Benötigt Input & ein Schlüsselwort zum verschlüsseln</p>
   <input type="text" name="VigenèreKey" id="VigenèreKey" placeholder="keyWord">
+  <button type="button" onclick="generateKey('vigenère')">Generate a Key</button>
   <div class="caesarEncodeWrapper">
     <textarea id="VigenèreInputEncode" rows="4" placeholder="Text to encode"></textarea>
     <button type="button" onclick="VigenèreEncode()">Encode</button>
@@ -218,10 +220,10 @@ function VigenèreDecode() {
 }
 
 let Playfair = `
-    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode(Wort) & Schlüssel die beide ein Wort sind.<br>
-    Leerzeichen werden automatisch entfernt. EIn benutztes J wird automatisch zu einem I beim decoden<br>
-    X wird zum Schluss noch herausgesucht und entfernt</p>
+    <p class="info">Playfair Verschlüsselung<br>Benötigt Input für Encode(Wort) & Schlüssel(Wort).<br>
+    Leerzeichen werden entfernt Und J wird zu I</p>
     <input type="text" name="PlayfairKey" id="PlayfairKey" placeholder="key">
+    <button type="button" onclick="generateKey('playFair')">Generate a Key</button>
     <div class="caesarEncodeWrapper">
       <textarea type="text" id="PlayfairInputEncode" placeholder="Text to encode"></textarea>
       <button type="button" onclick="PlayfairEncode()">Encode</button>
@@ -435,7 +437,7 @@ let Playfair = `
   }
   
   function decryptPair(pair, grid) {
-    // gegeteil vo encryptPair, nimmt ciphertext, wo sch ufsplitted isch i Pairs und arbeited sich logisch betrachtet rückwerts dur d verschlüsselig
+    // gegeteil vo encryptPair, nimmt ciphertext, wo scho ufsplitted isch i Pairs und arbeited sich logisch betrachtet rückwerts dur d verschlüsselig
     let char1 = pair.charAt(0);
     let char2 = pair.charAt(1);
     let row1, col1, row2, col2;
@@ -515,7 +517,7 @@ let Playfair = `
   
   function externalOutput() {
     const output = document.getElementById("Output");
-    let newWin = open("url", "windowName");
+    let newWin = open();
     newWin.document.write(output.innerHTML);
   }
   
@@ -528,4 +530,36 @@ let Playfair = `
   
   function isNumber(variable) {
     return !isNaN(variable);
+  }
+
+  function generateKey(method) {
+    switch (method) {
+      case "caesar":
+        document.getElementById("caesarKey").value = getRandomInt(1000);
+        break;
+      case "vigenère":
+        document.getElementById("VigenèreKey").value = randomString(5);
+        break;
+      case "playFair":
+        document.getElementById("PlayfairKey").value = randomString(5);
+        break;
+      default:
+        return;
+    }
+  }
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function randomString(length) {
+    let result = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
   }
